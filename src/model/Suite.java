@@ -9,7 +9,7 @@ public class Suite extends RentalProperty {
 
 	//Suite Constructor
 	public Suite(String propID, String streetNum, String streetName, String suburb,
-			String propStatus) {
+			PropStatus propStatus) {
 
 		super(streetNum, streetName, suburb, propStatus);
 		setRate(554);	//fixed variables for suites
@@ -22,7 +22,7 @@ public class Suite extends RentalProperty {
 	}
 
 	public static void addProperty(String propID, String streetNum, String streetName, String suburb,
-			String propStatus) {
+			PropStatus propStatus) {
 
 		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus); 
 		FlexiRentSystem.addtoRecord(s);  // adds suite to array once created

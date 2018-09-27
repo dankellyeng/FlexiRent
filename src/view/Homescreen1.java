@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.*;
 
 public class Homescreen1 extends Application{
 	
@@ -28,11 +29,15 @@ public class Homescreen1 extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
+		
+		Suite s1 = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
+		Suite s2 = new Suite("S_42Carlton", "42", "Lentil St", "Carlton", PropStatus.Available);
+	
 	}
 	
-	public ObservableList<Property> getProperties(){
-		ObservableList<Property> properties = FXCollections.observableArrayList();
-		properties.add(new Property());
+	public ObservableList<RentalProperty> getProperties(){
+		ObservableList<RentalProperty> properties = FXCollections.observableArrayList();
+		properties.add(new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available));
 		return properties;
 	}
 	
@@ -40,12 +45,12 @@ public class Homescreen1 extends Application{
 	public void start(Stage primaryStage) throws Exception {
 	window = primaryStage;
 	
-	TableView<Property> table = new TableView<>();
+	TableView<RentalProperty> table = new TableView<>();
 	table.setFixedCellSize(105);
-	//table.setPadding(new Insets(10,50,50,10));
+	
 	
 	table.setRowFactory(tv -> {
-	    TableRow<Property> row = new TableRow<>();
+	    TableRow<RentalProperty> row = new TableRow<>();
 	    row.setOnMouseClicked(event -> {
 	        if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
 	             && event.getClickCount() == 2) {
@@ -57,15 +62,17 @@ public class Homescreen1 extends Application{
 	});
 	
 	//Name column
-	TableColumn<Property, String> nameColumn = new TableColumn<> ();
-	nameColumn.setMinWidth(200);
-	nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+	TableColumn<RentalProperty, String> imageColumn = new TableColumn<> ();
+	imageColumn.setMinWidth(200);
+	imageColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 	
 	
 	//Price Column
-	TableColumn<Property, Double> priceColumn = new TableColumn<> ("Price");
-	priceColumn.setMinWidth(200);
-	priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+	TableColumn<RentalProperty, Double> addressColumn = new TableColumn<> ("Price");
+	addressColumn.setMinWidth(200);
+	addressColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+	
+	
 	
 	Button detailsButton = new Button ("Details");
 	detailsButton.setOnAction(e -> PropertyWindow.display("Property Details"));
@@ -82,12 +89,12 @@ public class Homescreen1 extends Application{
 	
 	
 	//table.set
-	table.getColumns().addAll(nameColumn, priceColumn, detailsColumn);
+	table.getColumns().addAll(imageColumn, addressColumn, detailsColumn);
 	
 	
 	HBox bottomMenu = new HBox(0);
 	bottomMenu.setPrefHeight(50);
-	bottomMenu.setPrefWidth(150);
+	bottomMenu.setPrefWidth(160);
 	bottomMenu.setSpacing(4);
 	bottomMenu.setPadding(new Insets(10,50,30,10));
 	

@@ -7,7 +7,7 @@ public class Appartment extends RentalProperty {
 
 	//Appartment constructor
 	public Appartment(String propID, String streetNum, String streetName, String suburb,
-			String propStatus, int rooms, int minimumRent, double rate, double lateFee) {
+			PropStatus propStatus, int rooms, int minimumRent, double rate, double lateFee) {
 
 		super(streetNum, streetName, suburb, propStatus);
 
@@ -17,7 +17,7 @@ public class Appartment extends RentalProperty {
 	}
 
 	public static void addProperty(String propID, String streetNum, String streetName, String suburb,
-			String propStatus, int rooms, int minimumRent, 
+			PropStatus propStatus, int rooms, int minimumRent, 
 			double rate, double lateFee) {
 
 		Appartment a = new Appartment(propID, streetNum, streetName, suburb, propStatus, rooms, 0, rate, lateFee); 

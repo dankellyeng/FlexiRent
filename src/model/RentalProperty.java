@@ -18,7 +18,7 @@ public abstract class RentalProperty {
 	//RentalRecord r = new RentalRecord();
 
 	public RentalProperty(String streetNum, String streetName, String suburb,
-			String propStatus) {
+			PropStatus propStatus) {
 
 		propID = propType + streetNum + suburb;
 		this.streetNum = streetNum;

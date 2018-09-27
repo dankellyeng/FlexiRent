@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -24,7 +25,7 @@ public class PropertyWindow {
 	
 	HBox bottomMenu = new HBox(0);
 	bottomMenu.setPrefHeight(50);
-	bottomMenu.setPrefWidth(150);
+	bottomMenu.setPrefWidth(160);
 	bottomMenu.setSpacing(4);
 	bottomMenu.setPadding(new Insets(10,50,30,10));
 	
@@ -65,6 +66,40 @@ public class PropertyWindow {
 ;
 	bottomMenu.getChildren().addAll(button1, button2, button3, button4, button5);	
 	
+	VBox rightMenu = new VBox();
+	rightMenu.setPrefHeight(50);
+	rightMenu.setPrefWidth(160);
+	rightMenu.setSpacing(4);
+	rightMenu.setPadding(new Insets(10,50,30,10));
+	
+	Button rentButton = new Button ("Rent");
+	rentButton.setOnAction(e -> window.close());
+	
+	Button returnButton = new Button ("Return");
+	returnButton.setOnAction(e -> System.out.println("Return"));
+	
+	Button maintainButton = new Button ("Begin Maintenance");
+	maintainButton.setOnAction(e -> System.out.println("Begin Maintenance"));
+	
+	Button completeButton = new Button ("Complete Maintenance");
+	button4.setOnAction(e -> System.out.println("Complete Maintenance"));
+	
+	rentButton.setMinWidth(rightMenu.getPrefWidth());
+	rentButton.setMinHeight(rightMenu.getPrefHeight());
+	rentButton.setOpacity(0.9);
+	returnButton.setMinWidth(rightMenu.getPrefWidth());
+	returnButton.setMinHeight(rightMenu.getPrefHeight());
+	returnButton.setOpacity(0.9);
+	maintainButton.setMinWidth(rightMenu.getPrefWidth());
+	maintainButton.setMinHeight(rightMenu.getPrefHeight());
+	maintainButton.setOpacity(0.9);
+	completeButton.setMinWidth(rightMenu.getPrefWidth());
+	completeButton.setMinHeight(rightMenu.getPrefHeight());
+	completeButton.setOpacity(0.9);
+		
+	
+	rightMenu.getChildren().addAll(rentButton, returnButton, maintainButton, completeButton);
+	
 	ListView <String>list = new ListView<>();
 	list.getItems().addAll("Property History"
 			+ "\nRented"
@@ -104,6 +139,7 @@ public class PropertyWindow {
 	border.setBottom(bottomMenu);
 	border.setCenter(list);
 	border.setTop(top);
+	border.setRight(rightMenu);
 	
 	window.setScene(scene);
 	window.setResizable(false);

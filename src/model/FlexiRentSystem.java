@@ -25,7 +25,7 @@ public class FlexiRentSystem {
 
 		Scanner console = new Scanner(System.in);
 
-		Suite s = new Suite("S_23Brunswick", "23", "Limbic", "Brunswick", "Available");
+		Suite s = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
 		addtoRecord(s);
 		
 		//menu repeats while choice is not valid (int only)
@@ -67,7 +67,7 @@ public class FlexiRentSystem {
 
 					String propType = "A_";
 					String propID = propType + streetNum + suburb;
-					String propStatus = "Available";
+					PropStatus propStatus = PropStatus.Available;
 					int minimumRent = 0;
 					double rate = 0;
 					double lateFee = 0;
@@ -102,7 +102,7 @@ public class FlexiRentSystem {
 					String streetName = console.nextLine(); 
 					System.out.println("Enter suburb: ");
 					String suburb = console.nextLine();
-					String propStatus = "Available";
+					PropStatus propStatus = PropStatus.Available;
 					String propType = "S_";
 					String propID = propType + streetNum + suburb;
 

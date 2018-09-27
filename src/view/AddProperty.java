@@ -1,6 +1,5 @@
 package view;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -30,9 +30,12 @@ public class AddProperty{
 	
 	Label propTypeLabel = new Label("Property Type");
 	GridPane.setConstraints(propTypeLabel, 0, 0);
+	final ToggleGroup group = new ToggleGroup();
 	RadioButton apartmentButton = new RadioButton("Appartment");
+	apartmentButton.setToggleGroup(group);
 	GridPane.setConstraints(apartmentButton, 1, 0, 1, 1);
 	RadioButton suiteButton = new RadioButton("Premium Suite");
+	suiteButton.setToggleGroup(group);
 	GridPane.setConstraints(suiteButton, 2, 0, 1, 1);
 	
 	Label streetNumLabel = new Label("Street Number");
@@ -55,18 +58,27 @@ public class AddProperty{
 	
 	Label roomsLabel = new Label("Number of rooms");
 	GridPane.setConstraints(roomsLabel, 0, 4);
-	TextField rooms = new TextField();
-	rooms.setPromptText("e.g. 2");
-	GridPane.setConstraints(rooms, 1, 4, 2, 1);
+	final ToggleGroup group2 = new ToggleGroup();
+	RadioButton oneButton = new RadioButton("1");
+	oneButton.setToggleGroup(group2);
+	GridPane.setConstraints(oneButton, 1, 4, 1, 1);
+	RadioButton twoButton = new RadioButton("2");
+	twoButton.setToggleGroup(group2);
+	GridPane.setConstraints(twoButton, 2, 4, 1, 1);
+	RadioButton threeButton = new RadioButton("3");
+	threeButton.setToggleGroup(group2);
+	GridPane.setConstraints(threeButton, 3, 4, 1, 1);
+	
+	
 	
 	Button confirmButton = new Button("Confirm");
-	GridPane.setConstraints(confirmButton, 1, 5);
+	GridPane.setConstraints(confirmButton, 1, 6);
 	
 	
 	Button cancelButton = new Button("Cancel");
-	GridPane.setConstraints(cancelButton, 2, 5);
+	GridPane.setConstraints(cancelButton, 2, 6);
 			
-	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNum, streetNameLabel, streetName, suburbLabel, suburb, roomsLabel, rooms, confirmButton, cancelButton);
+	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNum, streetNameLabel, streetName, suburbLabel, suburb, roomsLabel, oneButton, twoButton, threeButton, confirmButton, cancelButton);
 	
 	HBox bottomMenu = new HBox(0);
 	bottomMenu.setPrefHeight(50);
