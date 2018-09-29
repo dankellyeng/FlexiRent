@@ -4,8 +4,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -16,10 +18,13 @@ import javafx.stage.Stage;
 
 public class AddProperty{
 	
+	
 	Scene scene;
+	
 
 	public static void display(String title) {
 	Stage window = new Stage();
+	
 	
 	GridPane grid = new GridPane();
 	grid.setPadding(new Insets(10,10,10,10));
@@ -42,43 +47,53 @@ public class AddProperty{
 	GridPane.setConstraints(streetNumLabel, 0, 1);
 	TextField streetNum = new TextField();
 	streetNum.setPromptText("e.g. 28B");
-	GridPane.setConstraints(streetNum, 1, 1, 2, 1);
+	GridPane.setConstraints(streetNum, 1, 1, 4, 1);
 	
 	Label streetNameLabel = new Label("Street Name");
 	GridPane.setConstraints(streetNameLabel, 0, 2);
 	TextField streetName = new TextField();
 	streetName.setPromptText("e.g. Smith Street");
-	GridPane.setConstraints(streetName, 1, 2, 2, 1);
+	GridPane.setConstraints(streetName, 1, 2, 4, 1);
 	
 	Label suburbLabel = new Label("Suburb");
 	GridPane.setConstraints(suburbLabel, 0, 3);
 	TextField suburb = new TextField();
 	suburb.setPromptText("e.g. Fitzroy");
-	GridPane.setConstraints(suburb, 1, 3, 2, 1);
+	GridPane.setConstraints(suburb, 1, 3, 4, 1);
 	
 	Label roomsLabel = new Label("Number of rooms");
 	GridPane.setConstraints(roomsLabel, 0, 4);
-	final ToggleGroup group2 = new ToggleGroup();
-	RadioButton oneButton = new RadioButton("1");
-	oneButton.setToggleGroup(group2);
-	GridPane.setConstraints(oneButton, 1, 4, 1, 1);
-	RadioButton twoButton = new RadioButton("2");
-	twoButton.setToggleGroup(group2);
-	GridPane.setConstraints(twoButton, 2, 4, 1, 1);
-	RadioButton threeButton = new RadioButton("3");
-	threeButton.setToggleGroup(group2);
-	GridPane.setConstraints(threeButton, 3, 4, 1, 1);
+	ComboBox<String> roomBox = new ComboBox<>();
+	roomBox.setMinWidth(75);
+	roomBox.getItems().addAll("1", "2", "3");
+	GridPane.setConstraints(roomBox, 1, 4, 2, 1);
+			
+	Label imageLabel = new Label("Select an image:");
+	GridPane.setConstraints(imageLabel, 0, 5);
+	
+	Button imageSelect = new Button("Open File");
+	imageSelect.setOnAction(e -> FileOpener.display("sessy d"));
+	GridPane.setConstraints(imageSelect, 1, 5);
+	
+	Label descriptLabel = new Label("Enter Property Description");
+	GridPane.setConstraints(descriptLabel, 0, 6);
+	TextArea box = new TextArea();
+	box.setMaxSize(300, 150);
+	GridPane.setConstraints(box, 1, 6, 4, 3);
+	
+	
+	
 	
 	
 	
 	Button confirmButton = new Button("Confirm");
-	GridPane.setConstraints(confirmButton, 1, 6);
+	GridPane.setConstraints(confirmButton, 1, 10);
 	
 	
 	Button cancelButton = new Button("Cancel");
-	GridPane.setConstraints(cancelButton, 2, 6);
+	GridPane.setConstraints(cancelButton, 2, 10);
 			
-	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNum, streetNameLabel, streetName, suburbLabel, suburb, roomsLabel, oneButton, twoButton, threeButton, confirmButton, cancelButton);
+	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNum, streetNameLabel, streetName, suburbLabel, suburb, roomsLabel, roomBox, confirmButton, cancelButton, imageLabel, imageSelect, descriptLabel, box);
 	
 	HBox bottomMenu = new HBox(0);
 	bottomMenu.setPrefHeight(50);
@@ -123,6 +138,9 @@ public class AddProperty{
 ;
 	bottomMenu.getChildren().addAll(button1, button2, button3, button4, button5);
 	
+	
+	
+	
 	BorderPane border = new BorderPane();
 	bottomMenu.setAlignment(Pos.BOTTOM_RIGHT);
 	grid.setAlignment(Pos.CENTER);
@@ -137,19 +155,9 @@ public class AddProperty{
 	
 	
 	
+        }
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
-}
+	}
+
