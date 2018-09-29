@@ -31,7 +31,7 @@ public class Homescreen1 extends Application{
 		launch(args);
 		
 		Suite s1 = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
-		Suite s2 = new Suite("S_42Carlton", "42", "Lentil St", "Carlton", PropStatus.Available);
+		Suite s2 = new Suite("S_41Carlton", "41", "Lentil St", "Carlton", PropStatus.Available);
 	
 	}
 	
