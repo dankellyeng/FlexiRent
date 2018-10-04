@@ -128,7 +128,7 @@ public class AddProperty{
 	//Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, minimumRent, rate, lateFee);
 	
 	
-	
+	//When confirm button is clicked a new property is created from the user input and added to the array list
 	Button confirmButton = new Button("Confirm");
 	confirmButton.setOnAction(e -> System.out.println(streetNumField.getText() + "\n" + streetNameField.getText() ));
 	GridPane.setConstraints(confirmButton, 1, 10);

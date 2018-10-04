@@ -11,16 +11,23 @@ import controller.*;
 public class PropertyArray {
 	private AddProperty addProperty;
 	private FlexiRentController flexiRentController;
+	private RentalProperty rental;
+
+//	public PropertyArray(RentalProperty rental) {
+//		
+//	}
 	
-	List propArrayList = new ArrayList();
+	List<RentalProperty> propArrayList = new ArrayList<RentalProperty>();
 	
-	public void addtoList() {
-		propArrayList.add(RentalProperty);
-		System.out.println("Property " + RentalProperty + " added to arraylist");
+
+	public void addtoList(RentalProperty rental) {
+		propArrayList.add(rental);
+		System.out.println("Property " + rental.getPropID() + " added to arraylist");
 	}
 	
 	
 	//String result = roomBox.getValue();
 	//int rooms = Integer.parseInt(result);
 	
+
 }

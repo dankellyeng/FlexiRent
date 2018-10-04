@@ -22,8 +22,13 @@ public class Apartment extends RentalProperty {
 			PropStatus propStatus, int rooms, int minimumRent, 
 			double rate, double lateFee) {
 
+		PropertyArray array = new PropertyArray();
+		
 		Apartment a = new Apartment(propID, streetNum, streetName, suburb, propStatus, rooms, 0, rate, lateFee); 
-		FlexiRentSystem.addtoRecord(a);	//adds appartment to array
+		array.addtoList(a);
+		System.out.println("Property " + a.getPropID() + " added to arraylist");
+		
+		//FlexiRentSystem.addtoRecord(a);	//adds appartment to array
 
 	}
 

@@ -12,6 +12,7 @@ public class FlexiRentController {
 	private AddProperty addProperty;
 	private Apartment apartment;
 	private Suite suite;
+	private PropertyArray array;
 	
 	public FlexiRentController(AddProperty addProperty, Apartment apartment) {
 		this.addProperty = addProperty;
@@ -53,7 +54,7 @@ public class FlexiRentController {
 						}else if(propType == "Premium Suite") {
 						Suite.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available);
 					}
-					PropertyArray.
+					
 				
 				
 					}

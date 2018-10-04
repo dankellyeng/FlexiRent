@@ -8,6 +8,7 @@ public class Suite extends RentalProperty {
 	private String propType;
 	private String propID;
 	private DateTime lastMaintained;
+	private PropertyArray array;
 
 	//Suite Constructor
 	public Suite(String propID, String streetNum, String streetName, String suburb,
@@ -25,9 +26,12 @@ public class Suite extends RentalProperty {
 
 	public static void addProperty(String propID, String streetNum, String streetName, String suburb,
 			PropStatus propStatus) {
+		PropertyArray array = new PropertyArray();
 
 		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus); 
-		FlexiRentSystem.addtoRecord(s);  // adds suite to array once created
+		array.addtoList(s);
+		System.out.println("Property " + s.getPropID() + " added to arraylist");
+		//FlexiRentSystem.addtoRecord(s);  // adds suite to array once created
 		
 	}
 
