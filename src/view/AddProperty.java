@@ -28,6 +28,8 @@ public class AddProperty{
 	private String suburb;
 	private String propType;
 	private int rooms;
+	private String image;
+	private String description;
 	
 	
 	
@@ -57,19 +59,19 @@ public class AddProperty{
 	RadioButton suiteButton = new RadioButton("Premium Suite");
 	suiteButton.setToggleGroup(group);
 	GridPane.setConstraints(suiteButton, 2, 0, 1, 1);
-//	
-//	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-//		@Override
-//		public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
-//			RadioButton check = (RadioButton)t1.getToggleGroup().getSelectedToggle();
-//			if (check.getText() == "Apartment") {
-//			String propType = "Apartment";
-//					} else {
-//						String propType = "Suite";
-//				
-//			
-//		}}
-//	});
+	
+	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		@Override
+		public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+			RadioButton check = (RadioButton)t1.getToggleGroup().getSelectedToggle();
+			if (check.getText() == "Apartment") {
+			String propType = "Apartment";
+					} else {
+						String propType = "Suite";
+				
+			
+		}}
+	});
 	
 	Label streetNumLabel = new Label("Street Number");
 	GridPane.setConstraints(streetNumLabel, 0, 1);
@@ -117,6 +119,8 @@ public class AddProperty{
 	String streetName = streetNameField.getText();
 	String suburb = suburbField.getText();
 	String description = box.getText();
+	String image = "image";
+	 
 	
 	
 		
@@ -261,6 +265,30 @@ public class AddProperty{
 
 
 	public void addPropListener(ActionListener actionListener) {
+	}
+
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 //	void addConfirmListener(ActionListener listenForConfirm){

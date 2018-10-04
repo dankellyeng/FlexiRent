@@ -13,6 +13,8 @@ public abstract class RentalProperty {
 	private int rooms;
 	private int minimumRent;
 	private static double rate;
+	private String image;
+	private String description;
 	RentalRecord[] record; 
 	
 	//RentalRecord r = new RentalRecord();
@@ -26,6 +28,7 @@ public abstract class RentalProperty {
 		this.suburb = suburb;
 		this.propStatus = PropStatus.Available;
 		this.record = new RentalRecord[10]; 
+		this.image = "image-coming-soon.jpg";
 
 	}
 
@@ -199,6 +202,22 @@ public abstract class RentalProperty {
 
 	public PropStatus getPropStatus() {
 		return propStatus;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
