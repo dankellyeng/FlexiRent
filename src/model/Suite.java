@@ -1,6 +1,8 @@
 package model;
 import java.util.Date;
 
+import controller.FlexiRentSystem;
+
 public class Suite extends RentalProperty {
 
 	private String propType;

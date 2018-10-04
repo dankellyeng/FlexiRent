@@ -1,6 +1,14 @@
-package model;
+package controller;
 
 import java.util.Scanner;
+
+import model.Apartment;
+import model.DateTime;
+import model.PropStatus;
+import model.RentalProperty;
+import model.RentalRecord;
+import model.Suite;
+
 import java.util.Date;
 
 public class FlexiRentSystem {
@@ -86,7 +94,7 @@ public class FlexiRentSystem {
 					lateFee = rate*1.15;
 
 
-					Appartment.addProperty(propID, streetNum, streetName, suburb, propStatus,
+					Apartment.addProperty(propID, streetNum, streetName, suburb, propStatus,
 							rooms, minimumRent, rate, lateFee);
 					
 

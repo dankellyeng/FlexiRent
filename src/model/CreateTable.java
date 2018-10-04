@@ -7,13 +7,13 @@ public class CreateTable {
 	public static void main(String[] args) throws SQLException {
 		
 		final String DB_NAME = "propDB";
-		final String TABLE_NAME = "APPARTMENT";
+		final String TABLE_NAME = "RENTAL_RECORD";
 		
 		//use try-with-resources Statement
 		try (Connection con = DatabaseConnect.getConnection(DB_NAME);
 				Statement stmt = con.createStatement();
 		) {
-			int result = stmt.executeUpdate("CREATE TABLE Appartment ("
+			int result = stmt.executeUpdate("CREATE TABLE RENTAL_RECORD("
 										+ "propID VARCHAR(16) NOT NULL,"
 										+ "streetNum VARCHAR(8) NOT NULL," 
 										+ "streetName VARCHAR(32) NOT NULL,"

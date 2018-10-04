@@ -1,5 +1,9 @@
 package view;
 
+import java.awt.event.ActionListener;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,17 +13,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.*;
 
 
 public class AddProperty{
+	private String streetNum;
+	private String streetName;
+	private String suburb;
+	private String propType;
+	private int rooms;
+	
+	
+	
 	
 	
 	Scene scene;
+	
 	
 
 	public static void display(String title) {
@@ -36,30 +51,43 @@ public class AddProperty{
 	Label propTypeLabel = new Label("Property Type");
 	GridPane.setConstraints(propTypeLabel, 0, 0);
 	final ToggleGroup group = new ToggleGroup();
-	RadioButton apartmentButton = new RadioButton("Appartment");
+	RadioButton apartmentButton = new RadioButton("Apartment");
 	apartmentButton.setToggleGroup(group);
 	GridPane.setConstraints(apartmentButton, 1, 0, 1, 1);
 	RadioButton suiteButton = new RadioButton("Premium Suite");
 	suiteButton.setToggleGroup(group);
 	GridPane.setConstraints(suiteButton, 2, 0, 1, 1);
+//	
+//	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+//		@Override
+//		public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+//			RadioButton check = (RadioButton)t1.getToggleGroup().getSelectedToggle();
+//			if (check.getText() == "Apartment") {
+//			String propType = "Apartment";
+//					} else {
+//						String propType = "Suite";
+//				
+//			
+//		}}
+//	});
 	
 	Label streetNumLabel = new Label("Street Number");
 	GridPane.setConstraints(streetNumLabel, 0, 1);
-	TextField streetNum = new TextField();
-	streetNum.setPromptText("e.g. 28B");
-	GridPane.setConstraints(streetNum, 1, 1, 4, 1);
+	TextField streetNumField = new TextField();
+	streetNumField.setPromptText("e.g. 28B");
+	GridPane.setConstraints(streetNumField, 1, 1, 4, 1);
 	
 	Label streetNameLabel = new Label("Street Name");
 	GridPane.setConstraints(streetNameLabel, 0, 2);
-	TextField streetName = new TextField();
-	streetName.setPromptText("e.g. Smith Street");
-	GridPane.setConstraints(streetName, 1, 2, 4, 1);
+	TextField streetNameField = new TextField();
+	streetNameField.setPromptText("e.g. Smith Street");
+	GridPane.setConstraints(streetNameField, 1, 2, 4, 1);
 	
 	Label suburbLabel = new Label("Suburb");
 	GridPane.setConstraints(suburbLabel, 0, 3);
-	TextField suburb = new TextField();
-	suburb.setPromptText("e.g. Fitzroy");
-	GridPane.setConstraints(suburb, 1, 3, 4, 1);
+	TextField suburbField = new TextField();
+	suburbField.setPromptText("e.g. Fitzroy");
+	GridPane.setConstraints(suburbField, 1, 3, 4, 1);
 	
 	Label roomsLabel = new Label("Number of rooms");
 	GridPane.setConstraints(roomsLabel, 0, 4);
@@ -67,6 +95,8 @@ public class AddProperty{
 	roomBox.setMinWidth(75);
 	roomBox.getItems().addAll("1", "2", "3");
 	GridPane.setConstraints(roomBox, 1, 4, 2, 1);
+	String result = roomBox.getValue();
+	//rooms = Integer.parseInt(result);
 			
 	Label imageLabel = new Label("Select an image:");
 	GridPane.setConstraints(imageLabel, 0, 5);
@@ -83,17 +113,27 @@ public class AddProperty{
 	
 	
 	
+	String streetNum = streetNumField.getText();
+	String streetName = streetNameField.getText();
+	String suburb = suburbField.getText();
+	String description = box.getText();
+	
+	
+		
+	
+	//Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, minimumRent, rate, lateFee);
 	
 	
 	
 	Button confirmButton = new Button("Confirm");
+	confirmButton.setOnAction(e -> System.out.println(streetNumField.getText() + "\n" + streetNameField.getText() ));
 	GridPane.setConstraints(confirmButton, 1, 10);
 	
 	
 	Button cancelButton = new Button("Cancel");
 	GridPane.setConstraints(cancelButton, 2, 10);
 			
-	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNum, streetNameLabel, streetName, suburbLabel, suburb, roomsLabel, roomBox, confirmButton, cancelButton, imageLabel, imageSelect, descriptLabel, box);
+	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNumField, streetNameLabel, streetNameField, suburbLabel, suburbField, roomsLabel, roomBox, confirmButton, cancelButton, imageLabel, imageSelect, descriptLabel, box);
 	
 	HBox bottomMenu = new HBox(0);
 	bottomMenu.setPrefHeight(50);
@@ -101,6 +141,8 @@ public class AddProperty{
 	bottomMenu.setSpacing(4);
 	bottomMenu.setPadding(new Insets(10,50,30,10));
 	
+	
+	//Button Actions for bottom Menu
 	Button button1 = new Button ("Back to Menu");
 	button1.setOnAction(e -> window.close());
 	
@@ -115,8 +157,8 @@ public class AddProperty{
 		
 	Button button5 = new Button ("Quit");
 	button5.setOnAction(e -> {
-		boolean result = ConfirmBox.display("Exit Program", "Are you sure you want to exit the program?");
-		if(result == true){
+		boolean confirm = ConfirmBox.display("Exit Program", "Are you sure you want to exit the program?");
+		if(confirm == true){
 				System.exit(0);}
 	});
 	
@@ -154,10 +196,78 @@ public class AddProperty{
 	window.showAndWait();
 	
 	
-	
-        }
-	
-
-	
 	}
+
+
+
+	public String getStreetNum() {
+		return streetNum;
+	}
+
+
+
+	public void setStreetNum(String streetNum) {
+	//	streetNum = streetNumField.getText();
+	}
+
+
+
+	public String getStreetName() {
+		return streetName;
+	}
+
+
+
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+
+
+
+	public String getSuburb() {
+		return suburb;
+	}
+
+
+
+	public void setSuburb(String suburb) {
+		this.suburb = suburb;
+	}
+
+
+
+	public String getPropType() {
+		return propType;
+	}
+
+
+
+	public void setPropType(String propType) {
+		this.propType = propType;
+	}
+
+
+
+	public int getRooms() {
+		return rooms;
+	}
+
+
+
+	public void setRooms(int rooms) {
+	//	rooms = Integer.parseInt(roomBox.getValue());
+	}
+
+
+
+	public void addPropListener(ActionListener actionListener) {
+	}
+	
+//	void addConfirmListener(ActionListener listenForConfirm){
+//	
+//		confirmButton.addActionListener(listenForConfirm);
+		//}
+
+}
+	
 

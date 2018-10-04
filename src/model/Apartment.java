@@ -1,12 +1,14 @@
 package model;
 
-public class Appartment extends RentalProperty {
+import controller.FlexiRentSystem;
+
+public class Apartment extends RentalProperty {
 
 	private String propType;
 	private String propID;
 
 	//Appartment constructor
-	public Appartment(String propID, String streetNum, String streetName, String suburb,
+	public Apartment(String propID, String streetNum, String streetName, String suburb,
 			PropStatus propStatus, int rooms, int minimumRent, double rate, double lateFee) {
 
 		super(streetNum, streetName, suburb, propStatus);
@@ -20,7 +22,7 @@ public class Appartment extends RentalProperty {
 			PropStatus propStatus, int rooms, int minimumRent, 
 			double rate, double lateFee) {
 
-		Appartment a = new Appartment(propID, streetNum, streetName, suburb, propStatus, rooms, 0, rate, lateFee); 
+		Apartment a = new Apartment(propID, streetNum, streetName, suburb, propStatus, rooms, 0, rate, lateFee); 
 		FlexiRentSystem.addtoRecord(a);	//adds appartment to array
 
 	}

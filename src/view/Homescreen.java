@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.*;
 
-public class Homescreen1 extends Application{
+public class Homescreen extends Application{
 	
 	Stage window;
 	Scene scene1;
@@ -30,8 +30,8 @@ public class Homescreen1 extends Application{
 	public static void main(String[] args) {
 		launch(args);
 		
-		Suite s1 = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
-		Suite s2 = new Suite("S_41Carlton", "41", "Lentil St", "Carlton", PropStatus.Available);
+		//Suite s1 = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
+		//Suite s2 = new Suite("S_41Carlton", "41", "Lentil St", "Carlton", PropStatus.Available);
 	
 	}
 	
