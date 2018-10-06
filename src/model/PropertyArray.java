@@ -15,7 +15,7 @@ public class PropertyArray {
 
 //	public PropertyArray(RentalProperty rental) {
 //		
-//	}
+//	}f
 	
 	List<RentalProperty> propArrayList = new ArrayList<RentalProperty>();
 	

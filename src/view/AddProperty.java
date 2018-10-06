@@ -30,7 +30,8 @@ public class AddProperty{
 	private int rooms;
 	private String image;
 	private String description;
-	
+	private Apartment apartment;
+	private Suite suite;
 	
 	
 	
@@ -123,14 +124,20 @@ public class AddProperty{
 	 
 	
 	
-		
+	RentalProperty rental;
+	Suite suite;
+	Apartment apartment;
 	
 	//Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, minimumRent, rate, lateFee);
 	
 	
 	//When confirm button is clicked a new property is created from the user input and added to the array list
 	Button confirmButton = new Button("Confirm");
-	confirmButton.setOnAction(e -> System.out.println(streetNumField.getText() + "\n" + streetNameField.getText() ));
+	if(propType == "Apartment") {
+	confirmButton.setOnAction(e -> Apartment.addProperty());
+	}else if (getPropType() == "Suite"){
+	confirmButton.setOnAction(e -> Suite.addProperty());}
+//			System.out.println(streetNumField.getText() + "\n" + street NameField.getText());
 	GridPane.setConstraints(confirmButton, 1, 10);
 	
 	
