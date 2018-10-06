@@ -33,8 +33,8 @@ public class FlexiRentSystem {
 
 		Scanner console = new Scanner(System.in);
 
-		Suite s = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
-		addtoRecord(s);
+		//Suite s = new Suite("S_23Brunswick", "23", "Limbic St", "Brunswick", PropStatus.Available);
+		//addtoRecord(s);
 		
 		//menu repeats while choice is not valid (int only)
 		int option;
@@ -94,8 +94,8 @@ public class FlexiRentSystem {
 					lateFee = rate*1.15;
 
 
-					Apartment.addProperty(propID, streetNum, streetName, suburb, propStatus,
-							rooms, minimumRent, rate, lateFee);
+					//Apartment.addProperty(propID, streetNum, streetName, suburb, propStatus,
+					//		rooms, minimumRent, rate, lateFee);
 					
 
 					System.out.println("Appartment: " + propID + " succesfully added.");
@@ -115,7 +115,7 @@ public class FlexiRentSystem {
 					String propID = propType + streetNum + suburb;
 
 
-					Suite.addProperty(propID, streetNum, streetName, suburb, propStatus);
+					//Suite.addProperty(propID, streetNum, streetName, suburb, propStatus);
 					//addtoRecord();
 					
 					System.out.println("Premium Suite: " + propID + " succesfully added.\n");

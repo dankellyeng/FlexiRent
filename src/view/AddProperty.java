@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionListener;
 
+import controller.FlexiRentController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -26,13 +27,13 @@ public class AddProperty{
 	private String streetNum;
 	private String streetName;
 	private String suburb;
-	private String propType;
+	private static String propType;
 	private int rooms;
 	private String image;
 	private String description;
 	private Apartment apartment;
 	private Suite suite;
-	
+	private FlexiRentController flexiRentController;
 	
 	
 	
@@ -125,18 +126,15 @@ public class AddProperty{
 	
 	
 	RentalProperty rental;
-	Suite suite;
-	Apartment apartment;
+	Suite suite = new Suite();
+	Apartment apartment = new Apartment();
 	
 	//Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, minimumRent, rate, lateFee);
 	
 	
 	//When confirm button is clicked a new property is created from the user input and added to the array list
 	Button confirmButton = new Button("Confirm");
-	if(propType == "Apartment") {
-	confirmButton.setOnAction(e -> Apartment.addProperty());
-	}else if (getPropType() == "Suite"){
-	confirmButton.setOnAction(e -> Suite.addProperty());}
+	//confirmButton.setOnAction(e -> 
 //			System.out.println(streetNumField.getText() + "\n" + street NameField.getText());
 	GridPane.setConstraints(confirmButton, 1, 10);
 	
@@ -208,7 +206,6 @@ public class AddProperty{
 	
 	
 	}
-
 
 
 	public String getStreetNum() {
@@ -301,7 +298,7 @@ public class AddProperty{
 //	void addConfirmListener(ActionListener listenForConfirm){
 //	
 //		confirmButton.addActionListener(listenForConfirm);
-		//}
+//		}
 
 }
 	

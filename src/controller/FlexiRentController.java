@@ -41,6 +41,8 @@ public class FlexiRentController {
 				suburb = addProperty.getSuburb();
 				propType = addProperty.getPropType();
 				rooms = addProperty.getRooms();
+				image = addProperty.getImage();
+				description = addProperty.getDescription();
 				
 					if(propType == "Apartment") {
 						if (addProperty.getRooms() == 1) { //set rate for Appartment
@@ -50,9 +52,9 @@ public class FlexiRentController {
 						}else if (addProperty.getRooms() == 3) {
 							rate = 319;
 						lateFee = rate*1.15;
-						Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, 2, rate, lateFee);
+						Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, 2, rate, lateFee, image, description);
 						}else if(propType == "Premium Suite") {
-						Suite.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available);
+						Suite.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, image, description);
 					}
 					
 				

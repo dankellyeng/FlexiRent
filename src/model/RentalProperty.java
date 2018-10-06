@@ -20,16 +20,20 @@ public abstract class RentalProperty {
 	//RentalRecord r = new RentalRecord();
 
 	public RentalProperty(String streetNum, String streetName, String suburb,
-			PropStatus propStatus) {
+			PropStatus propStatus, String image, String description) {
 
 		propID = propType + streetNum + suburb;
 		this.streetNum = streetNum;
 		this.streetName = streetName;
 		this.suburb = suburb;
 		this.propStatus = PropStatus.Available;
-		this.record = new RentalRecord[10]; 
+		//this.record = new RentalRecord[10]; 
 		this.image = "image-coming-soon.jpg";
+		this.description = description;
 
+	}
+	public RentalProperty() {
+		
 	}
 
 	Scanner console =  new Scanner(System.in);

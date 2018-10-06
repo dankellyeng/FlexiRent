@@ -12,9 +12,9 @@ public class Suite extends RentalProperty {
 
 	//Suite Constructor
 	public Suite(String propID, String streetNum, String streetName, String suburb,
-			PropStatus propStatus) {
+			PropStatus propStatus, String image, String description) {
 
-		super(streetNum, streetName, suburb, propStatus);
+		super(streetNum, streetName, suburb, propStatus, image, description);
 		setRate(554);	//fixed variables for suites
 		setRooms(3); 
 		setMinimumRent(1);
@@ -23,13 +23,16 @@ public class Suite extends RentalProperty {
 		propType = "S_";
 		this.propID = propType + streetNum + suburb;
 	}
+	public Suite() {
+		
+	}
 
 	public static void addProperty(String propID, String streetNum, String streetName, String suburb,
-			PropStatus propStatus) {
+			PropStatus propStatus, String image, String description) {
 		PropertyArray array = new PropertyArray();
 
-		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus); 
-		array.addtoList(s);
+		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus, image, description); 
+		//array.addtoList(s);
 		System.out.println("Property " + s.getPropID() + " added to arraylist whoop whoop");
 		//FlexiRentSystem.addtoRecord(s);  // adds suite to array once created
 		
