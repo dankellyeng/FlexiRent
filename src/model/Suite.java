@@ -33,7 +33,7 @@ public class Suite extends RentalProperty {
 
 		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus, image, description); 
 		//array.addtoList(s);
-		System.out.println("Property " + s.getPropID() + " added to arraylist whoop whoop");
+		//System.out.println("Property " + s.getPropID() + " added to arraylist whoop whoop");
 		//FlexiRentSystem.addtoRecord(s);  // adds suite to array once created
 		
 	}

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.geometry.Insets;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,10 +13,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.RentalProperty;
+import model.*;
+import controller.*;
 
 public class PropertyWindow {
 	
 	Scene scene;
+	RentalProperty property;
+	Homescreen homescreen;
 
 	public static void display(String title) {
 	Stage window = new Stage();
@@ -73,7 +79,7 @@ public class PropertyWindow {
 	rightMenu.setPadding(new Insets(10,50,30,10));
 	
 	Button rentButton = new Button ("Rent");
-	rentButton.setOnAction(e -> window.close());
+	rentButton.setOnAction(e -> System.out.println("Rent"));
 	
 	Button returnButton = new Button ("Return");
 	returnButton.setOnAction(e -> System.out.println("Return"));
@@ -124,8 +130,10 @@ public class PropertyWindow {
 	list.setFixedCellSize(100);
 	
 	AnchorPane top = new AnchorPane();
-	Label label = new Label("Property Photo and long description");
-	label.setFont(Font.font("Verdana", 40));
+	//for (RentalProperty property : properties){
+	Label label = new Label("Property ID: " ); //property.getPropID());
+//			(RentalProperty.getPropID());
+	label.setFont(Font.font("Verdana", 20));
 	label.setPadding(new Insets(20,20,20,20));
 	
 	top.getChildren().addAll(label);
