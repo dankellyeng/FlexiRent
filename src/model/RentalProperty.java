@@ -68,7 +68,7 @@ public abstract class RentalProperty {
 	}
 
 
-	public static double getRate() {
+	public double getRate() {
 		return rate;
 	}
 

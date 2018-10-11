@@ -1,20 +1,23 @@
 package view;
 
 import javafx.geometry.Insets;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.*;
-import controller.*;
+import model.Apartment;
+import model.PropStatus;
+import model.PropertyArray;
+import model.RentalProperty;
+import model.Suite;
 
 public class PropertyWindow {
 	
@@ -90,7 +93,7 @@ public class PropertyWindow {
 		StatusBox.display("Confirmation", "Property successfully Returned");});
 	} catch (Exception e1) {
 		// TODO Auto-generated catch block
-		StatusBox.display("Error", "Property cannot be rented");
+		StatusBox.display("Error", "Property cannot be returned");
 	}
 	
 	Button maintainButton = new Button ("Begin Maintenance");
@@ -131,13 +134,43 @@ public class PropertyWindow {
 	Suite suite1 = new Suite();
 	
 	
-	Label label = new Label("Property ID: " + "");
-//	PropertyArray.propArrayList.get(0).getPropID());
-	label.setFont(Font.font("Verdana", 20));
-	label.setPadding(new Insets(20,20,20,20));
+	Label idLabel = new Label("Property ID: " + PropertyArray.propArrayList.get(0).getPropID());
+	idLabel.setFont(Font.font("Verdana", 20));
+	idLabel.setPadding(new Insets(0,40,20,20));
 	
-	top.getChildren().addAll(label);
+	Label addressLabel = new Label("Address: " + PropertyArray.propArrayList.get(0).getAddress());
+	addressLabel.setFont(Font.font("Verdana", 20));
+	addressLabel.setPadding(new Insets(20,40,20,20));
+	
+	Label statusLabel = new Label("Availability: " + PropertyArray.propArrayList.get(0).getPropStatus());
+	statusLabel.setFont(Font.font("Verdana", 20));
+	statusLabel.setPadding(new Insets(20,40,20,20));
+	
+	Label roomsLabel = new Label("Number of rooms: " + PropertyArray.propArrayList.get(0).getRooms());
+	roomsLabel.setFont(Font.font("Verdana", 20));
+	roomsLabel.setPadding(new Insets(20,40,20,20));
+	
+	Label priceLabel = new Label("Rate: " + PropertyArray.propArrayList.get(0).getRate());
+	priceLabel.setFont(Font.font("Verdana", 20));
+	priceLabel.setPadding(new Insets(20,40,20,20));
+	
+	top.getChildren().addAll(idLabel, addressLabel, statusLabel, roomsLabel, priceLabel);
 	top.setPadding(new Insets(100));
+	
+	VBox labels = new VBox();
+	labels.getChildren().addAll(idLabel, addressLabel, statusLabel, roomsLabel, priceLabel);
+	
+	HBox topBox = new HBox();
+	ImageView image = new ImageView(PropertyArray.propArrayList.get(6).getImage());
+	image.setFitHeight(300);
+	image.setFitWidth(600);
+	topBox.setPadding(new Insets (30,20,20,20));
+//	image.prefHeight(200);
+//	image.prefWidth(200);
+	topBox.getChildren().addAll(labels, image);
+	
+	
+	
 	
 	BorderPane border = new BorderPane();
 	Scene scene = new Scene (border, 1000, 665);
@@ -146,7 +179,7 @@ public class PropertyWindow {
 	
 	border.setBottom(bottomMenu);
 	border.setCenter(list);
-	border.setTop(top);
+	border.setTop(topBox);
 	border.setRight(rightMenu);
 	
 	window.setScene(scene);
