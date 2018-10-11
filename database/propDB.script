@@ -32,7 +32,7 @@ CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
 CREATE SCHEMA PUBLIC AUTHORIZATION DBA
 SET SCHEMA PUBLIC
-CREATE MEMORY TABLE PUBLIC.RENTAL_PROPERTY(PROPIMAGE VARCHAR(32) NOT NULL,PROPID VARCHAR(16) NOT NULL PRIMARY KEY,STREETNUM VARCHAR(8) NOT NULL,STREETNAME VARCHAR(32) NOT NULL,SUBURB VARCHAR(16) NOT NULL,PROPSTATUS VARCHAR(16) NOT NULL,ROOMS INTEGER NOT NULL,RATE DOUBLE NOT NULL,MINIMUMRENT INTEGER NOT NULL)
+CREATE MEMORY TABLE PUBLIC.RENTAL_PROPERTY(PROPID VARCHAR(32) NOT NULL PRIMARY KEY,STREETNUM VARCHAR(8) NOT NULL,STREETNAME VARCHAR(32) NOT NULL,SUBURB VARCHAR(32) NOT NULL,PROPSTATUS VARCHAR(16) NOT NULL,ROOMS INTEGER NOT NULL,RATE INTEGER NOT NULL,MINIMUMRENT INTEGER NOT NULL,LATEFEE INTEGER NOT NULL,IMAGE VARCHAR(32) NOT NULL,DESCRIPTION VARCHAR(120) NOT NULL)
 ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 1
 SET DATABASE DEFAULT INITIAL SCHEMA PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.SQL_IDENTIFIER TO PUBLIC
@@ -44,4 +44,18 @@ GRANT DBA TO SA
 SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
-INSERT INTO RENTAL_PROPERTY VALUES('Albertstreet.jpg','S_23Brunswick','23','Limbic St','Brunswick','Available',3,554.0E0,1)
+INSERT INTO RENTAL_PROPERTY VALUES('A_13Thornbury','13','Park St','Thornbury','Available',2,2,210,315,'Parkstreet.jpg','This apartment is perfect for winter getaways as well as sweet summer vacations.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_17Alphington','17','Sydney Ave','Alphington','Available',2,2,210,315,'Sydneyavenue.jpg','This amazing apartment has all you need to relax including a gigantic spa bath.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_23Brunswick','23','Sydney Rd','Brunswick','Available',2,2,210,315,'Sydneyroad.jpg','This fantastic apartment has a private balcony and a 55 inch television.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_27Carlton','27','Luxury St','Carlton','Available',2,2,210,315,'Luxuraystreet.jpg','This recently renovated apartment features all new appliances and a pool too.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_45Brunswick West','45','Union St','Brunswick West','Available',2,2,210,315,'Unionstreet.jpg','This beautiful apartment is well lit and spacious with a great back yard.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_54Carlton','54','Victoria St','Carlton','Available',2,2,210,315,'Victoriastreet.jpg','This stunning rental property is recently renovated and has plenty of room.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_5Parkville','5','Rakaia Way','Parkville','Available',2,2,210,315,'Rakaiaway.jpg','This apartment will not disappoint with its spacious bedrooms and wonderful kitchen.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_66Fitzroy','66','Southbank Rd','Fitzroy','Available',2,2,210,315,'Southbankroad.jpg','This wonderful apartment has 3 gigantic bedrooms and a huge entertaining area.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_7Flemington','7','Stuart St','Flemington','Available',2,2,210,315,'Stuartstreet.jpg','This great apartment features beautiful views of the city skyline and has a pool.')
+INSERT INTO RENTAL_PROPERTY VALUES('A_82Brunswick','82','Kavanagh St','Brunswick','Available',2,2,210,315,'Kavanaghstreet.jpg','This quaint little apartment is centrally located and great for those on a budget.')
+INSERT INTO RENTAL_PROPERTY VALUES('S_13Carlton','13','Brick Drive','Carlton','Available',3,1,554,669,'Brickdrive.jpg','This amazing premium suite offers a once in a lifetime experience for all visitors.')
+INSERT INTO RENTAL_PROPERTY VALUES('S_23Brunswick','23','Albert St','Brunswick','Available',3,1,554,669,'Albertstreet.jpg','This premium suite has a microwave that you are allowed to use. Accepts 4x $2 coins.')
+INSERT INTO RENTAL_PROPERTY VALUES('S_24Carlton North','24','Clarendon St','Carlton North','Available',3,1,554,669,'Clarendonstreet.jpg','This wonderful premium suite has everything you need to relax and feel at home.')
+INSERT INTO RENTAL_PROPERTY VALUES('S_41Northcote','44','Dods St','Northcote','Available',3,1,554,669,'Dodsstreet.jpg','This fantastic premium suite will make you feel like a movie star living the dream.')
+INSERT INTO RENTAL_PROPERTY VALUES('S_41Port Melbourne','41','Beach St','Port Melbourne','Available',3,1,554,669,'Beachstreet.jpg','This luxurious premium suite is right in the heart of the city and will not disappoint.')

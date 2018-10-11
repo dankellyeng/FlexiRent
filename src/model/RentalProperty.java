@@ -16,6 +16,7 @@ public abstract class RentalProperty {
 	private String image;
 	private String description;
 	RentalRecord[] record; 
+	private String address;
 	
 	//RentalRecord r = new RentalRecord();
 
@@ -23,13 +24,14 @@ public abstract class RentalProperty {
 			PropStatus propStatus, String image, String description) {
 
 		propID = propType + streetNum + suburb;
-		this.streetNum = streetNum;
-		this.streetName = streetName;
+		this.setStreetNum(streetNum);
+		this.setStreetName(streetName);
 		this.suburb = suburb;
 		this.propStatus = PropStatus.Available;
 		//this.record = new RentalRecord[10]; 
-		this.image = "image-coming-soon.jpg";
+		this.image = image;
 		this.description = description;
+		setAddress(streetNum + " " + streetName + " " + suburb);
 
 	}
 	public RentalProperty() {
@@ -222,6 +224,24 @@ public abstract class RentalProperty {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getStreetNum() {
+		return streetNum;
+	}
+	public void setStreetNum(String streetNum) {
+		this.streetNum = streetNum;
+	}
+	public String getStreetName() {
+		return streetName;
+	}
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

@@ -13,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.RentalProperty;
 import model.*;
 import controller.*;
 
@@ -21,7 +20,9 @@ public class PropertyWindow {
 	
 	Scene scene;
 	RentalProperty property;
-	Homescreen homescreen;
+	static Homescreen homescreen;
+	private Apartment apartment;
+	//private Suite suite;
 
 	public static void display(String title) {
 	Stage window = new Stage();
@@ -79,16 +80,26 @@ public class PropertyWindow {
 	rightMenu.setPadding(new Insets(10,50,30,10));
 	
 	Button rentButton = new Button ("Rent");
-	rentButton.setOnAction(e -> System.out.println("Rent"));
+	rentButton.setOnAction(e -> {System.out.println("socks");//PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.Rented);
+		StatusBox.display("Confirmation", "Property successfully Rented");});
+	
 	
 	Button returnButton = new Button ("Return");
-	returnButton.setOnAction(e -> System.out.println("Return"));
+	try {
+		returnButton.setOnAction(e -> {PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.Available);
+		StatusBox.display("Confirmation", "Property successfully Returned");});
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		StatusBox.display("Error", "Property cannot be rented");
+	}
 	
 	Button maintainButton = new Button ("Begin Maintenance");
-	maintainButton.setOnAction(e -> System.out.println("Begin Maintenance"));
+	maintainButton.setOnAction(e -> {PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.UnderMaintenance);
+	StatusBox.display("Confirmation", "Maintenance successfully started");});
 	
 	Button completeButton = new Button ("Complete Maintenance");
-	button4.setOnAction(e -> System.out.println("Complete Maintenance"));
+	button4.setOnAction(e -> {PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.Available);
+	StatusBox.display("Confirmation", "Maintenance successfully completed");});
 	
 	rentButton.setMinWidth(rightMenu.getPrefWidth());
 	rentButton.setMinHeight(rightMenu.getPrefHeight());
@@ -107,22 +118,8 @@ public class PropertyWindow {
 	rightMenu.getChildren().addAll(rentButton, returnButton, maintainButton, completeButton);
 	
 	ListView <String>list = new ListView<>();
-	list.getItems().addAll("Property History"
-			+ "\nRented"
-			+ "\nReturned"
-			+ "\nMaintained",
-					 "Property History"
-					+ "\nRented"
-					+ "\nReturned"
-					+ "\nMaintained",
-							 "Property History"
-							+ "\nRented"
-							+ "\nReturned"
-							+ "\nMaintained",
-									"Property History"
-									+ "\nRented"
-									+ "\nReturned"
-									+ "\nMaintained" );
+	Suite suite = new Suite();
+	list.getItems().addAll("");
 	
 	
 	;
@@ -130,9 +127,12 @@ public class PropertyWindow {
 	list.setFixedCellSize(100);
 	
 	AnchorPane top = new AnchorPane();
-	//for (RentalProperty property : properties){
-	Label label = new Label("Property ID: " ); //property.getPropID());
-//			(RentalProperty.getPropID());
+	
+	Suite suite1 = new Suite();
+	
+	
+	Label label = new Label("Property ID: " + "");
+//	PropertyArray.propArrayList.get(0).getPropID());
 	label.setFont(Font.font("Verdana", 20));
 	label.setPadding(new Insets(20,20,20,20));
 	
