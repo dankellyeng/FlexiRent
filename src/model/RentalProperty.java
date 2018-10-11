@@ -27,7 +27,7 @@ public abstract class RentalProperty {
 		this.setStreetNum(streetNum);
 		this.setStreetName(streetName);
 		this.suburb = suburb;
-		this.propStatus = PropStatus.Available;
+		this.propStatus = propStatus;
 		//this.record = new RentalRecord[10]; 
 		this.image = image;
 		this.description = description;

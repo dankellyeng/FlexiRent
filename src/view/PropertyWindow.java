@@ -1,5 +1,7 @@
 package view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,19 +20,35 @@ import model.PropStatus;
 import model.PropertyArray;
 import model.RentalProperty;
 import model.Suite;
+import model.Exceptions.PerformMainentenceException;
+import model.Exceptions.RentException;
+import model.Exceptions.ReturnException;
 
 public class PropertyWindow {
 	
 	Scene scene;
-	RentalProperty property;
+	static RentalProperty property;
 	static Homescreen homescreen;
 	private Apartment apartment;
 	//private Suite suite;
-
+	private static String temp;
+	
 	public static void display(String title) {
 	Stage window = new Stage();
 	
 	window.setTitle(title);
+	//The title is the propID passed into the PropertyWindow when clicking on a particular property in the main window.
+	//This for loop matches that propID with the property from the propArrayList so that object can be managed 
+	temp = title;
+	
+		for(int i = 0; i < PropertyArray.propArrayList.size(); i++) {
+			
+			if(temp == PropertyArray.propArrayList.get(i).getPropID()){
+				System.out.println(temp);
+				property = PropertyArray.propArrayList.get(i);}
+			}
+			
+//			System.out.println(property.getDescription());
 	
 	
 	HBox bottomMenu = new HBox(0);
@@ -83,26 +101,84 @@ public class PropertyWindow {
 	rightMenu.setPadding(new Insets(10,50,30,10));
 	
 	Button rentButton = new Button ("Rent");
-	rentButton.setOnAction(e -> {System.out.println("socks");//PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.Rented);
-		StatusBox.display("Confirmation", "Property successfully Rented");});
+	rentButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.Rented) {
+		try {
+			throw new RentException("Whoops! Property is already being rented");
+		} catch (RentException e1) {
+			
+		}
+	} else if (property.getPropStatus() == PropStatus.UnderMaintenance) {
+		try {
+			throw new PerformMainentenceException ("Whoops! Property is currently under maintenance");
+		} catch (PerformMainentenceException e1) {
+		
+		}
+	}else {
+		property.setPropStatus(PropStatus.Rented);
+		
 	
-	
+		StatusBox.display("Confirmation", "Property successfully Rented");
+	}});
 	Button returnButton = new Button ("Return");
-	try {
-		returnButton.setOnAction(e -> {PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.Available);
-		StatusBox.display("Confirmation", "Property successfully Returned");});
-	} catch (Exception e1) {
-		// TODO Auto-generated catch block
-		StatusBox.display("Error", "Property cannot be returned");
-	}
+		returnButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.Available) {
+			try {
+				throw new ReturnException("Whoops! Property has already been returned");
+			} catch (ReturnException e1) {
+				
+			}
+		} else if (property.getPropStatus() == PropStatus.UnderMaintenance) {
+			try {
+				throw new PerformMainentenceException ("Whoops! Property is currently under maintenance");
+			} catch (PerformMainentenceException e1) {
+				
+			}
+		}else {
+			property.setPropStatus(PropStatus.Available);
+			
+		
+			StatusBox.display("Confirmation", "Property successfully Returned");
+		}});
+	
 	
 	Button maintainButton = new Button ("Begin Maintenance");
-	maintainButton.setOnAction(e -> {PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.UnderMaintenance);
-	StatusBox.display("Confirmation", "Maintenance successfully started");});
+	maintainButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.UnderMaintenance) {
+		try {
+			throw new PerformMainentenceException("Whoops! Property is already under maintenance");
+		} catch (PerformMainentenceException e1) {
+			
+		}
+	} else if (property.getPropStatus() == PropStatus.Rented) {
+		try {
+			throw new RentException ("Whoops! Property is currently being rented");
+		} catch (RentException e1) {
+			
+		}
+	}else {
+		property.setPropStatus(PropStatus.UnderMaintenance);
+		
 	
+		StatusBox.display("Confirmation", "Maintenance successfully started");
+	}});
+	////one more exception to do
 	Button completeButton = new Button ("Complete Maintenance");
-	button4.setOnAction(e -> {PropertyArray.propArrayList.get(0).setPropStatus(PropStatus.Available);
-	StatusBox.display("Confirmation", "Maintenance successfully completed");});
+	completeButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.Available) {
+		try {
+			throw new PerformMainentenceException("Whoops! Property is not under maintenance");
+		} catch (PerformMainentenceException e1) {
+			
+		}
+	} else if (property.getPropStatus() == PropStatus.Rented) {
+		try {
+			throw new RentException ("Whoops! Property is currently being rented");
+		} catch (RentException e1) {
+			
+		}
+	}else {
+		property.setPropStatus(PropStatus.Available);
+		
+	
+		StatusBox.display("Confirmation", "Maintenance successfully finished");
+	}});
 	
 	rentButton.setMinWidth(rightMenu.getPrefWidth());
 	rentButton.setMinHeight(rightMenu.getPrefHeight());
@@ -120,37 +196,40 @@ public class PropertyWindow {
 	
 	rightMenu.getChildren().addAll(rentButton, returnButton, maintainButton, completeButton);
 	
-	ListView <String>list = new ListView<>();
+	ListView <String>historyList = new ListView<>();
 	Suite suite = new Suite();
-	list.getItems().addAll("");
+	historyList.getItems().addAll("");
 	
+	historyList.setMaxSize(500, 200);
+	historyList.setFixedCellSize(100);
 	
-	;
-	list.setMaxSize(500, 250);
-	list.setFixedCellSize(100);
+
+	ObservableList<String> list = FXCollections.observableArrayList(property.getDescription());
+	ListView <String>descriptionList = new ListView<>();
+	descriptionList.setItems(list);
+	HBox centreBox = new HBox();
+	centreBox.getChildren().addAll(descriptionList, historyList);
+	
 	
 	AnchorPane top = new AnchorPane();
 	
-	Suite suite1 = new Suite();
-	
-	
-	Label idLabel = new Label("Property ID: " + PropertyArray.propArrayList.get(0).getPropID());
+	Label idLabel = new Label("Property ID: " + property.getPropID());
 	idLabel.setFont(Font.font("Verdana", 20));
 	idLabel.setPadding(new Insets(0,40,20,20));
 	
-	Label addressLabel = new Label("Address: " + PropertyArray.propArrayList.get(0).getAddress());
+	Label addressLabel = new Label("Address: " + property.getAddress());
 	addressLabel.setFont(Font.font("Verdana", 20));
 	addressLabel.setPadding(new Insets(20,40,20,20));
 	
-	Label statusLabel = new Label("Availability: " + PropertyArray.propArrayList.get(0).getPropStatus());
+	Label statusLabel = new Label("Availability: " + property.getPropStatus());
 	statusLabel.setFont(Font.font("Verdana", 20));
 	statusLabel.setPadding(new Insets(20,40,20,20));
 	
-	Label roomsLabel = new Label("Number of rooms: " + PropertyArray.propArrayList.get(0).getRooms());
+	Label roomsLabel = new Label("Number of rooms: " + property.getRooms());
 	roomsLabel.setFont(Font.font("Verdana", 20));
 	roomsLabel.setPadding(new Insets(20,40,20,20));
 	
-	Label priceLabel = new Label("Rate: " + PropertyArray.propArrayList.get(0).getRate());
+	Label priceLabel = new Label("Rate: " + property.getRate());
 	priceLabel.setFont(Font.font("Verdana", 20));
 	priceLabel.setPadding(new Insets(20,40,20,20));
 	
@@ -161,10 +240,10 @@ public class PropertyWindow {
 	labels.getChildren().addAll(idLabel, addressLabel, statusLabel, roomsLabel, priceLabel);
 	
 	HBox topBox = new HBox();
-	ImageView image = new ImageView(PropertyArray.propArrayList.get(6).getImage());
+	ImageView image = new ImageView(property.getImage());
 	image.setFitHeight(300);
 	image.setFitWidth(600);
-	topBox.setPadding(new Insets (30,20,20,20));
+	topBox.setPadding(new Insets (15,20,0,20));
 //	image.prefHeight(200);
 //	image.prefWidth(200);
 	topBox.getChildren().addAll(labels, image);
@@ -178,7 +257,7 @@ public class PropertyWindow {
 	bottomMenu.setAlignment(Pos.BOTTOM_RIGHT);
 	
 	border.setBottom(bottomMenu);
-	border.setCenter(list);
+	border.setCenter(centreBox);
 	border.setTop(topBox);
 	border.setRight(rightMenu);
 	
@@ -191,8 +270,7 @@ public class PropertyWindow {
 
 }
 	
-	
-	
+
 	
 	
 	

@@ -28,7 +28,7 @@ public class PropertyArray {
 		
 		//propArrayList.add(property);
 		
-		Suite s1 = new Suite("S_29Brunswick", "29", "Albert St", "Brunswick", PropStatus.Available, "Albertstreet.jpg", "This premium suite has a microwave that you are allowed to use! (Accepts 4x $2 coins).");
+		Suite s1 = new Suite("S_29Brunswick", "29", "Albert St", "Brunswick", PropStatus.Rented, "Albertstreet.jpg", "This premium suite has a microwave that you are allowed to use! (Accepts 4x $2 coins).");
 		propArrayList.add(s1);
 		
 		Suite s2 = new Suite("S_41Port Melbourne", "41", "Beach St", "Port Melbourne", PropStatus.Available, "Beachstreet.jpg", "This luxurious premium suite is right in the heart of the city and won't disappoint.\n" + 

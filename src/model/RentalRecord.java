@@ -13,6 +13,7 @@ public class RentalRecord {
 	private static String propID;
 
 	 static DateTime date = new DateTime();
+	 static RentalProperty property;
 
 
 	public RentalRecord (String recordID, String customerID, DateTime estimatedReturnDate, String rentDate, double rentalFee, DateTime actualReturnDate) {
@@ -51,7 +52,7 @@ public class RentalRecord {
 	}
 
 	public static double getrentalFee() {
-		rentalFee = RentalProperty.getRate() * 1 + getLateFee();
+		rentalFee = property.getRate() * 1 + getLateFee();
 		return rentalFee;
 	}
 
