@@ -6,8 +6,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +23,7 @@ import model.Apartment;
 import model.PropStatus;
 import model.PropertyArray;
 import model.RentalProperty;
+import model.RentalRecord;
 import model.Suite;
 import model.Exceptions.PerformMainentenceException;
 import model.Exceptions.RentException;
@@ -29,8 +34,7 @@ public class PropertyWindow {
 	Scene scene;
 	static RentalProperty property;
 	static Homescreen homescreen;
-	private Apartment apartment;
-	//private Suite suite;
+	static RentalRecord record;
 	private static String temp;
 	
 	public static void display(String title) {
@@ -114,10 +118,11 @@ public class PropertyWindow {
 		
 		}
 	}else {
-		property.setPropStatus(PropStatus.Rented);
+		RentBox.display(property.getPropID());
+		//property.setPropStatus(PropStatus.Rented);
 		
 	
-		StatusBox.display("Confirmation", "Property successfully Rented");
+		//StatusBox.display("Confirmation", "Property successfully Rented");
 	}});
 	Button returnButton = new Button ("Return");
 		returnButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.Available) {
@@ -197,41 +202,60 @@ public class PropertyWindow {
 	rightMenu.getChildren().addAll(rentButton, returnButton, maintainButton, completeButton);
 	
 	ListView <String>historyList = new ListView<>();
-	Suite suite = new Suite();
-	historyList.getItems().addAll("");
+	ObservableList<String> data = FXCollections.observableArrayList(record.getDetails(property));
+	
+	historyList.setItems(data);
 	
 	historyList.setMaxSize(500, 200);
 	historyList.setFixedCellSize(100);
 	
-
-	ObservableList<String> list = FXCollections.observableArrayList(property.getDescription());
-	ListView <String>descriptionList = new ListView<>();
-	descriptionList.setItems(list);
-	HBox centreBox = new HBox();
-	centreBox.getChildren().addAll(descriptionList, historyList);
+//	ObservableList<String> list = FXCollections.observableArrayList(property.getDescription());
+//	ListView <String>descriptionList = new ListView<>();
+//	
+//	protected void updateItem(String item, boolean empty) {
+//        super.updateItem(item, empty);
+//
+//        if (item != null && !empty) {
+//            setText(item);
+//        } else {
+//            setText(null);
+//        }
+//    }
+	
+	Label descriptionLabel = new Label ("Description: " + property.getDescription());
+	descriptionLabel.setFont(Font.font("Verdana", 12));
+	descriptionLabel.setPadding(new Insets(20,40,20,20));
+	
+	VBox centreBox = new VBox();
+	centreBox.getChildren().addAll(descriptionLabel, historyList);
+	centreBox.setPadding(new Insets(30,10,20,40));
 	
 	
 	AnchorPane top = new AnchorPane();
 	
 	Label idLabel = new Label("Property ID: " + property.getPropID());
 	idLabel.setFont(Font.font("Verdana", 20));
-	idLabel.setPadding(new Insets(0,40,20,20));
+	idLabel.setPadding(new Insets(0,40,0,20));
 	
 	Label addressLabel = new Label("Address: " + property.getAddress());
 	addressLabel.setFont(Font.font("Verdana", 20));
-	addressLabel.setPadding(new Insets(20,40,20,20));
+	addressLabel.setPadding(new Insets(20,40,0,20));
 	
 	Label statusLabel = new Label("Availability: " + property.getPropStatus());
 	statusLabel.setFont(Font.font("Verdana", 20));
-	statusLabel.setPadding(new Insets(20,40,20,20));
+	statusLabel.setPadding(new Insets(20,40,0,20));
 	
 	Label roomsLabel = new Label("Number of rooms: " + property.getRooms());
 	roomsLabel.setFont(Font.font("Verdana", 20));
-	roomsLabel.setPadding(new Insets(20,40,20,20));
+	roomsLabel.setPadding(new Insets(20,40,0,20));
 	
 	Label priceLabel = new Label("Rate: " + property.getRate());
 	priceLabel.setFont(Font.font("Verdana", 20));
-	priceLabel.setPadding(new Insets(20,40,20,20));
+	priceLabel.setPadding(new Insets(20,40,0,20));
+	
+//	Label descriptionLabel = new Label ("Description: " + property.getDescription());
+//	descriptionLabel.setFont(Font.font("Verdana", 20));
+//	descriptionLabel.setPadding(new Insets(20,40,0,20));
 	
 	top.getChildren().addAll(idLabel, addressLabel, statusLabel, roomsLabel, priceLabel);
 	top.setPadding(new Insets(100));

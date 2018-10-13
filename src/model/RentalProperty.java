@@ -10,12 +10,13 @@ public abstract class RentalProperty {
 	private String suburb;
 	private PropStatus propStatus;
 	private String propType;
+	private String propTypeLong;
 	private int rooms;
 	private int minimumRent;
 	private static double rate;
 	private String image;
 	private String description;
-	RentalRecord[] record; 
+	RentalRecord record; 
 	private String address;
 	
 	//RentalRecord r = new RentalRecord();
@@ -85,53 +86,53 @@ public abstract class RentalProperty {
 		
 		if (getPropStatus() == PropStatus.Available) {
 			setPropStatus(PropStatus.Rented);
-			RentalRecord r = new RentalRecord(getPropID(), RentalRecord.getCustomerID(), RentalRecord.getEstimatedReturnDate(), RentalRecord.getRentDate(), RentalRecord.getRentalFee(), RentalRecord.getActualReturnDate());
-			
-			int openSlot;
-			
-			for(int i = 0; i < record.length; i++){
-				if(record[i] == null)
-					
-					openSlot = i;
+			//RentalRecord r = new RentalRecord(getPropID(), RentalRecord.getCustomerID(), RentalRecord.getEstimatedReturnDate(), RentalRecord.getRentDate(), RentalRecord.getRentalFee(), RentalRecord.getActualReturnDate());
+			}
+//			int openSlot;
+//			
+//			for(int i = 0; i < record.length; i++){
+//				if(record[i] == null)
+//					
+//					openSlot = i;
 				
-				 record[i] =  r;
+				// record[i] =  r;
 				 //record[i].setLateFee(rate * 1.15);
-				 break;  
+//				 break;  
 				 }
 				
-			System.out.println("Property: " + getPropID() + " is now rented\n");
-			} else {
-			System.out.println("Property " + getPropID() + " cannot be rented right now.");
-		}
-
-	}
+//			System.out.println("Property: " + getPropID() + " is now rented\n");
+//			} else {
+//			System.out.println("Property " + getPropID() + " cannot be rented right now.");
+//		}
+//
+//	}
 
 	public void returnProperty(DateTime returnDate) {
 		
 		if (getPropStatus() == PropStatus.Rented) {
 			setPropStatus(PropStatus.Available);
-			RentalRecord r = new RentalRecord(getPropID(), RentalRecord.getCustomerID(), RentalRecord.getEstimatedReturnDate(), RentalRecord.getRentDate(), RentalRecord.getRentalFee(), RentalRecord.getActualReturnDate());
+			//RentalRecord r = new RentalRecord(getPropID(), RentalRecord.getCustomerID(), RentalRecord.getEstimatedReturnDate(), RentalRecord.getRentDate(), RentalRecord.getRentalFee(), RentalRecord.getActualReturnDate());
 			//DateTime late = new DateTime();
 			//int l = DateTime.diffDays(returnDate, getrentDate());
+//			
+//			int openSlot;
 			
-			int openSlot;
-			
-			for(int i = 0; i < record.length; i++){
-				if(record[i] == null)
-					
-					openSlot = i;
-				
-				
-				 record[i] =  r;
-				 record[i].setActualReturnDate(returnDate);
-				// record[i].setRentalFee(l * RentalRecord.getRentalFee());;
-				 
-				 break;  
-				 }
-		} else {
-			System.out.println("Property " + getPropID() + " cannot be returned right now.");
+//			for(int i = 0; i < record.length; i++){
+//				if(record[i] == null)
+//					
+//					openSlot = i;
+//				
+//				
+//				 //record[i] =  r;
+//				 record[i].setActualReturnDate(returnDate);
+//				// record[i].setRentalFee(l * RentalRecord.getRentalFee());;
+//				 
+//				 break;  
+//				 }
+//		} else {
+//			System.out.println("Property " + getPropID() + " cannot be returned right now.");
 		}
-		
+//		
 	}
 
 	public void performMaintenance() {
@@ -159,23 +160,25 @@ public abstract class RentalProperty {
 	}
 	public String getDetails() {
 		String details = null;
+		return details;
 		
 		
-		if(propStatus == PropStatus.Rented){
-		details = "Record ID: " + RentalRecord.getrecordID()+
-				"\nRent Date: "+ RentalRecord.getRentDate() +
-				"\nEstimated Return Date: "	+ RentalRecord.getEstimatedReturnDate() + "\n"; 
-		}else if (propStatus == PropStatus.Available){
-				details = "Record ID: " + RentalRecord.getrecordID() +
-						"\nRent Date: " + RentalRecord.getRentDate() +
-						"\nEstimated Return Date: " + RentalRecord.getEstimatedReturnDate() +
-						"\nActual Return Date: " + RentalRecord.getActualReturnDate() +
-						"\nRental Fee: " + RentalRecord.getrentalFee() +
-						"\nLate Fee: " + RentalRecord.getLateFee()+ "\n";
-		}
-				return details;
+//		if(propStatus == PropStatus.Rented){
+//		details = "Record ID: " + RentalRecord.getrecordID()+
+//				"\nRent Date: "+ RentalRecord.getRentDate() +
+//				"\nEstimated Return Date: "	+ RentalRecord.getEstimatedReturnDate() + "\n"; 
+//		}else if (propStatus == PropStatus.Available){
+//				return details = "Record ID: " + record.getRecordID() +
+//						"\nRent Date: " + record.getRentDate() +
+//						"\nEstimated Return Date: " + record.getEstimatedReturnDate() +
+//						"\nActual Return Date: " + record.getActualReturnDate() +
+//						"\nRental Fee: " + record.getrentalFee() +
+//						"\nLate Fee: " + record.getLateFee()+ "\n";
+				}
+		
+//				return details;
 
-	} 
+	
 
 	public DateTime getrentDate() {
 		
@@ -198,13 +201,13 @@ public abstract class RentalProperty {
 		this.suburb = suburb;
 	}
 
-	public RentalRecord[] getRecord() {
-		return record;
-	}
-
-	public void setRecord(RentalRecord[] record) {
-		this.record = record;
-	}
+//	public RentalRecord[] getRecord() {
+//		return record;
+//	}
+//
+//	public void setRecord(RentalRecord[] record) {
+//		this.record = record;
+//	}
 
 	public PropStatus getPropStatus() {
 		return propStatus;
@@ -242,6 +245,12 @@ public abstract class RentalProperty {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getPropTypeLong() {
+		return propTypeLong;
+	}
+	public void setPropTypeLong(String propTypeLong) {
+		this.propTypeLong = propTypeLong;
 	}
 
 }

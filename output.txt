@@ -1,0 +1,15 @@
+S_29Brunswick:29:Albert St:Brunswick
+S_41Port Melbourne:41:Beach St:Port Melbourne
+S_13Carlton:13:Brick Drive:Carlton
+S_24Carlton North:24:Clarendon St:Carlton North
+S_44Northcote:44:Dods St:Northcote
+A_82Brunswick:82:Kavanagh St:Brunswick
+A_27Carlton:27:Luxury St:Carlton
+A_13Thornbury:13:Park St:Thornbury
+A_5Parkville:5:Rakaia Way:Parkville
+A_66Fitzroy:66:Southbank Rd:Fitzroy
+A_7Flemington:7:Stuart St:Flemington
+A_17Alphington:17:Sydney Ave:Alphington
+A_23Brunswick:23:Sydney Rd:Brunswick
+A_45Brunswick West:45:Union St:Brunswick West
+A_54Carlton:54:Victoria St:Carlton

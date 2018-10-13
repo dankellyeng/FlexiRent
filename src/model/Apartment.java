@@ -14,6 +14,7 @@ public class Apartment extends RentalProperty {
 		super(streetNum, streetName, suburb, propStatus, image, description);
 
 		propType = "A_";
+		setPropTypeLong("Apartment");
 		this.propID = propType + streetNum + suburb;
 
 	}

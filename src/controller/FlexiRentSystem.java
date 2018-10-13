@@ -129,10 +129,10 @@ public class FlexiRentSystem {
 				console.nextLine(); 
 				System.out.println("Enter your Customer ID: ");
 				String customerID = console.nextLine();
-				RentalRecord.setCustomerID(customerID);
+				//RentalRecord.setCustomerID(customerID);
 				System.out.println("Enter the Property ID of the property you wish to rent: ");
 				String ID = console.nextLine();
-				RentalRecord.setPropID(ID);
+				//RentalRecord.setPropID(ID);
 				System.out.println("How many days would you like to rent this property?");
 				int numOfRentDays = console.nextInt();
 				
@@ -140,7 +140,7 @@ public class FlexiRentSystem {
 				
 				Date date = new Date(rentDate.getTime());
 				DateTime n = new DateTime(numOfRentDays);
-				RentalRecord.setEstimatedReturnDate(n);
+				//RentalRecord.setEstimatedReturnDate(n);
 				
 				RentalProperty found = null;
 				

@@ -4,9 +4,12 @@ import java.io.FileInputStream;
 import java.util.function.Predicate;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.Event;
@@ -16,15 +19,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageViewBuilder;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -32,6 +39,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.*;
 
 public class Homescreen extends Application{
@@ -79,6 +87,7 @@ public class Homescreen extends Application{
 	
 	//ObservableList<RentalProperty> list = FXCollections.observableArrayList(s1, s2, s3, s4, s5, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 	ObservableList<RentalProperty> list = FXCollections.observableArrayList(PropertyArray.propArrayList);
+	ObservableMap<String, ImageView> map = FXCollections.observableMap(PropertyArray.imageMap);
 	
 //	return list;
 //	
@@ -147,23 +156,89 @@ public class Homescreen extends Application{
 	});
 	
 	
-	//Image image1 = new Image(findImage());
+	//ImageView image = new ImageView(property.getImage());
 	//Name column
 	TableColumn<RentalProperty, ImageView> imageColumn = new TableColumn<RentalProperty, ImageView> ();
 	imageColumn.setMinWidth(150);
 	imageColumn.setCellValueFactory(new PropertyValueFactory<RentalProperty, ImageView>("image"));
-	//ImageView image = new ImageView("image");
+	//imageColumn.setCellValueFactory(new PropertyValueFactory<String, ImageView>(PropertyArray.imageMap.get(property.getPropID()));
+
+	////		@Override
+////		//public ObservableValue<Image> call(CellDataFeatures<RentalProperty, Image> p) {
+////			RentalProperty prop = p.getValue();
+////			
+////		}
+////	});
+//	imageColumn.setCellFactory(new Callback<TableColumn<RentalProperty, Image>, TableCell<RentalProperty, Image>>(){
+//		@Override
+//		public TableCell<RentalProperty, Image> call(TableColumn<RentalProperty, Image> p) {
+//			return new TableCell<RentalProperty, Image>(){
+//				
+//			@Override
+//			protected void updateItem (Image i, boolean empty) {
+//				super.updateItem(i, empty);
+//				setText(null);
+//				setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+//				ImageView imageView = (i == null || empty) ? null : ImageViewBuilder.create().image(i).build();
+//				setGraphic(imageView);
+//			}
+//			
+//		};
+//	}
+//});
+		
+		
+		
+		
+		
+		
+		
+		//ImageView image = new ImageView("image");
 	
 	//Price Column
 	TableColumn<RentalProperty, String> idColumn = new TableColumn<RentalProperty, String> ();
 	idColumn.setMinWidth(80);
 	idColumn.setCellValueFactory(new PropertyValueFactory<RentalProperty, String>("propID"));
+	
+	TableColumn<RentalProperty, String> typeColumn = new TableColumn<RentalProperty, String> ();
+	typeColumn.setMinWidth(80);
+	typeColumn.setCellValueFactory(new PropertyValueFactory<RentalProperty, String>("propTypeLong"));
+	
+	TableColumn<RentalProperty, String> statusColumn = new TableColumn<RentalProperty, String> ();
+	statusColumn.setMinWidth(60);
+	statusColumn.setCellValueFactory(new PropertyValueFactory<RentalProperty, String>("propStatus"));
 
 	TableColumn<RentalProperty, String> addressColumn = new TableColumn<RentalProperty, String> ();
-	addressColumn.setMinWidth(200);
+	addressColumn.setMinWidth(160);
 	addressColumn.setCellValueFactory(new PropertyValueFactory<RentalProperty, String>("address"));
 	
+//	 class TableViewCell extends TableCell<RentalProperty, Image> {
+//	        final ImageView imageView = new ImageView(property.getImage());
+//
+//	        TableViewCell() {
+//	            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+//	        }
+//
+//	        @Override
+//	        protected void updateItem(Image item, boolean empty) {
+//	            super.updateItem(item, empty);
+//
+//	            if (empty || item == null) {
+//	                imageView.setImage(null);
+//	                setText(null);
+//	                setGraphic(null);
+//	            }
+//
+//	            imageView.setImage(item);
+//	            setGraphic(imageView);
+//	        
+//	    }
+//	
+//
+//	 };
 	
+	 
+	 
 //	Button detailsButton = new Button ("Details");
 //	detailsButton.setOnAction(e -> PropertyWindow.display("Property Details"));
 	//Details Column
@@ -191,7 +266,7 @@ public class Homescreen extends Application{
 	table.setFixedCellSize(105);
 	//ObservableList<RentalProperty> list = getProperties();
 	table.setItems(list);
-	table.getColumns().addAll(imageColumn, idColumn, addressColumn);
+	table.getColumns().addAll(imageColumn, idColumn, typeColumn, statusColumn, addressColumn);
 	
 	
 	HBox bottomMenu = new HBox(0);
@@ -205,14 +280,18 @@ public class Homescreen extends Application{
 	button1.setOnAction(e -> AddProperty.display("Add Property"));
 
 	Button button2 = new Button ("Save");
-	button2.setOnAction(e -> System.out.println("save"));
+	button2.setOnAction(e -> { FileSave.saveInfo();{
+		StatusBox.display("Saved", "Data successfully saved");
+	}});
 	
 	Button button3 = new Button ("Import Data");
 	button3.setOnAction(e -> System.out.println("Import"));
 	
 	Button button4 = new Button ("Export Data");
-	button4.setOnAction(e -> System.out.println("Export"));
-		
+	button4.setOnAction(e -> { FileSave.saveInfo();{
+		StatusBox.display("Saved", "Data successfully exported");
+	}});
+	
 	Button button5 = new Button ("Quit");
 	button5.setOnAction(e -> {
 		boolean result = ConfirmBox.display("Exit Program", "Are you sure you want to exit the program?");
@@ -293,5 +372,5 @@ public class Homescreen extends Application{
 
 	}
 	
-
+	
 

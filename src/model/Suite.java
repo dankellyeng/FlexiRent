@@ -6,6 +6,7 @@ import controller.FlexiRentSystem;
 public class Suite extends RentalProperty {
 
 	private String propType;
+	
 	private String propID;
 	private DateTime lastMaintained;
 	private PropertyArray array;
@@ -21,6 +22,7 @@ public class Suite extends RentalProperty {
 
 		this.lastMaintained = lastMaintained;
 		propType = "S_";
+		setPropTypeLong("Premium Suite");
 		this.propID = propType + streetNum + suburb;
 	}
 	public Suite() {
@@ -42,23 +44,23 @@ public void rent(String customerID, DateTime rentDate, DateTime numOfRentDays) {
 		
 		if (getPropStatus() == PropStatus.Available) {
 			setPropStatus(PropStatus.Rented);
-			RentalRecord r = new RentalRecord(getPropID(), RentalRecord.getCustomerID(), RentalRecord.getEstimatedReturnDate(), RentalRecord.getRentDate(), RentalRecord.getRentalFee(), RentalRecord.getActualReturnDate());
-			
-			int openSlot;
-			
-			for(int i = 0; i < record.length; i++){
-				if(record[i] == null)
-					
-					openSlot = i;
-				
-				 record[i] =  r;
-				 record[i].setLateFee(662);
-				 break;  
-				 }
-				
-			System.out.println("Property: " + getPropID() + " is now rented\n");
-			} else {
-			System.out.println("Property " + getPropID() + " cannot be rented right now.");
+//			RentalRecord r = new RentalRecord(getPropID(), RentalRecord.getCustomerID(), RentalRecord.getEstimatedReturnDate(), RentalRecord.getRentDate(), RentalRecord.getRentalFee(), RentalRecord.getActualReturnDate());
+//			
+//			int openSlot;
+//			
+//			for(int i = 0; i < record.length; i++){
+//				if(record[i] == null)
+//					
+//					openSlot = i;
+//				
+//				 record[i] =  r;
+//				 record[i].setLateFee(662);
+//				 break;  
+//				 }
+//				
+//			System.out.println("Property: " + getPropID() + " is now rented\n");
+//			} else {
+//			System.out.println("Property " + getPropID() + " cannot be rented right now.");
 		}
 
 	}
