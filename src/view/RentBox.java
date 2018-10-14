@@ -1,6 +1,7 @@
 package view;
 
 import javafx.stage.*;
+import model.DateTime;
 import model.PropStatus;
 import model.PropertyArray;
 import model.RentalProperty;
@@ -18,6 +19,7 @@ public class RentBox {
 	private static String temp;
 	static RentalProperty property;
 	static RentalRecord record;
+	static DateTime date = new DateTime();
 
 	
 	public static void display(String title) {
@@ -69,9 +71,9 @@ public class RentBox {
 		
 		
 		Button confirmButton = new Button("Confirm");
-		confirmButton.setOnAction(e -> {
-				System.out.println(customerIDField.getText() + "\n" + rentDaysField.getText());
-				property.setPropStatus(PropStatus.Rented);
+		confirmButton.setOnAction(e -> {isInt(rentDaysField, rentDaysField.getText());
+				//System.out.println(customerIDField.getText() + "\n" + rentDaysField.getText());
+				property.rent(customerIDField.getText(), date, Integer.parseInt(rentDaysField.getText()));
 				//record.setCustomerID(customerIDField.getText());
 				StatusBox.display("Confirmed", "Property " + property.getPropID() + " successfully rented");
 				window.close();
@@ -99,6 +101,16 @@ public class RentBox {
 		window.setTitle("Rent Property");
 		window.setResizable(false);
 		window.showAndWait();
+	}
+	
+	private static boolean isInt(TextField input, String message) {
+		try {
+			int rentDays = Integer.parseInt(input.getText());
+			return true;
+		}catch(NumberFormatException e) {
+			StatusBox.display("error", "Rent days must be a number");
+			return false;
+		}
 	}
 	
 }

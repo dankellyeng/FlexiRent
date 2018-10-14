@@ -1,99 +1,75 @@
 package model;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.ArrayList;
+;
 public class RentalRecord {
 
 	private String customerID;
+	private String propID;
 	private String rentDate;
 	private String recordID;
-	private DateTime estimatedReturnDate;
-	private DateTime actualReturnDate;
+	private String estimatedReturnDate;
+	private String actualReturnDate;
 	private int rentalFee;
-	//private static DateTime rentDate;
 	private int lateFee;
-//	private static String propID;
-	private int rate;
 
-	 static DateTime date = new DateTime();
+	static DateTime date;
 	static RentalProperty property;
 
-	static HashMap<String, RentalRecord> rentHistory = new HashMap<String, RentalRecord>();
-	
-	public RentalRecord (String recordID, String customerID, DateTime estimatedReturnDate, String rentDate, int rentalFee, DateTime actualReturnDate) {
+	public RentalRecord (String recordID, String customerID, String estimatedReturnDate, String rentDate, int rentalFee, String actualReturnDate) {
 
-		//recordID = property.getPropID()+ customerID + getRentDate() + "joy";
-		recordID = property.getPropID() + "_" + customerID + "_" + date.getEightDigitDate();
+		//recordID = property.getPropID() + "_" + customerID + "_" + rentDate;
+		this.recordID = propID + "_" + customerID + "_" + rentDate;
 		this.estimatedReturnDate = estimatedReturnDate;
 		this.customerID = customerID;
 		this.setRentDate(rentDate);
 		this.rentalFee = rentalFee;
 		this.actualReturnDate = actualReturnDate;
-		//recordID = propID + "_" + custID + "_" + 
-		
-		
+
 	}
+	public static ArrayList<RentalRecord> rentHistory = new ArrayList<RentalRecord>();
+	public static void addtoRecordMap() {
 
-	public void addtoRecordMap() {
-		
+		RentalRecord s1 = new RentalRecord("S_29Brunswick_James42_2018-10-09", "James42", "2018-10-12", "2018-10-09", 1220, "2018-10-13");
+		rentHistory.add(s1);
+		RentalRecord s2 = new RentalRecord("S_29Brunswick_James42_2018-10-09", "James42", "2018-10-12", "2018-10-09", 1220, "2018-10-13");
+		rentHistory.add(s2);
 	}
-
-	Scanner console = new Scanner(System.in);
-
-	
-
 
 	public String toString() {
-		String record;
-		record = getRecordID() + ":" + getRentDate() + ":" + estimatedReturnDate + ":" + actualReturnDate + ":"
-				+ rentalFee + ":" + getLateFee();
+		String record = null;
 		return record;
 
 	}
 	public void setRecordID(String recordID) {
 		this.recordID = recordID;
 	}
-	
+
 	public String getRecordID() {
-//		recordID = property.getPropID() + "_" + customerID + "_" + date.getEightDigitDate();
+
 		return recordID;
 	}
 
 	public int getrentalFee() {
 		rentalFee= 500;
-//		rentalFee = property.getRate() * 1 + getLateFee();
+
 		return rentalFee;
 	}
 
 
 	public String getRentDate() {
-		
-		rentDate = date.getFormattedDate();
-		
-//		date = rentDate;
+
 		return rentDate;
-		
+
 	}
 
+	public String getDetails() {
 
-	public String getDetails(RentalProperty property) {
-		String details;
-		String ID;
-		System.out.println("Enter the propID of the rental to see details: ");
-		ID = console.nextLine();
-
-
-//		//if(propStatus = true){
-//		details = "Record ID:			Example" +
-//				"Rent Date: 		"+ getrentDate() +
-//				"Estimated Return Date"	+ getEstimatedReturnDate();
-//		}else{
-				details = "Record ID:			" + getRecordID() +
-						"Rent Date: 		" + getRentDate() +
-						"Estimated Return Date:		"	+ getEstimatedReturnDate() +
-						"Actual Return Date:			" + getActualReturnDate() +
-						"Rental Fee:			" + getrentalFee();
+		String details = "Record ID: " + getRecordID() + " \n" +
+				"Rent Date: " + getRentDate() + " \n" +
+				"Estimated Return Date: "	+ getEstimatedReturnDate() + " \n" +
+				"Actual Return Date: " + getActualReturnDate() + " \n" +
+				"Rental Fee: " + getrentalFee() + " \n";
 		return details;
-
 	}
 
 	public int getLateFee() {
@@ -104,31 +80,31 @@ public class RentalRecord {
 		this.lateFee = lateFee;
 	}
 
-	public DateTime getEstimatedReturnDate() {
-		//estimatedReturnDate = DateTime();
+	public String getEstimatedReturnDate() {
+
 		return estimatedReturnDate;
 	}
 
-	public void setEstimatedReturnDate(DateTime dateTime) {
+	public void setEstimatedReturnDate(String dateTime) {
 		estimatedReturnDate = dateTime;
 	}
 
-	public DateTime getActualReturnDate() {
+	public String getActualReturnDate() {
 		return actualReturnDate;
 	}
 
-	public void setActualReturnDate(DateTime actualReturnDate) {
+	public void setActualReturnDate(String actualReturnDate) {
 		this.actualReturnDate = actualReturnDate;
 	}
 
 	public int getRentalFee() {
-		
+
 		return rentalFee;
 	}
 
 	public void setRentalFee(int rentalFee) {
 		this.rentalFee = rentalFee;
-	
+
 	}
 
 	public  String getCustomerID() {
@@ -138,17 +114,12 @@ public class RentalRecord {
 	public  void setCustomerID(String customerID) {
 		this.customerID = customerID;
 	}
-//	public String getPropID() {
-//		return propID;
-//	}
-//	public static void setPropID(String propID) {
-//		RentalRecord.propID = propID;
-//	}
+
 	public void setRentDate(String rentDate) {
 		this.rentDate = rentDate;
 	}
 
-	
+
 }
 
 

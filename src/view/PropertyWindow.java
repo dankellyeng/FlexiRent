@@ -6,25 +6,25 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.Apartment;
+import model.DateTime;
+import model.FileSave;
 import model.PropStatus;
 import model.PropertyArray;
 import model.RentalProperty;
 import model.RentalRecord;
-import model.Suite;
 import model.Exceptions.PerformMainentenceException;
 import model.Exceptions.RentException;
 import model.Exceptions.ReturnException;
@@ -35,7 +35,10 @@ public class PropertyWindow {
 	static RentalProperty property;
 	static Homescreen homescreen;
 	static RentalRecord record;
+	static DateTime date;
 	private static String temp;
+	
+	private static TableView<RentalRecord> table = new TableView<RentalRecord>();
 	
 	public static void display(String title) {
 	Stage window = new Stage();
@@ -51,9 +54,6 @@ public class PropertyWindow {
 				System.out.println(temp);
 				property = PropertyArray.propArrayList.get(i);}
 			}
-			
-//			System.out.println(property.getDescription());
-	
 	
 	HBox bottomMenu = new HBox(0);
 	bottomMenu.setPrefHeight(50);
@@ -71,7 +71,9 @@ public class PropertyWindow {
 	button3.setOnAction(e -> System.out.println("Import"));
 	
 	Button button4 = new Button ("Export Data");
-	button4.setOnAction(e -> System.out.println("Export"));
+	button4.setOnAction(e -> { FileSave.saveInfo();{
+		StatusBox.display("Saved", "Data successfully exported");
+	}});
 		
 	Button button5 = new Button ("Quit");
 	button5.setOnAction(e -> {
@@ -119,10 +121,7 @@ public class PropertyWindow {
 		}
 	}else {
 		RentBox.display(property.getPropID());
-		//property.setPropStatus(PropStatus.Rented);
-		
 	
-		//StatusBox.display("Confirmation", "Property successfully Rented");
 	}});
 	Button returnButton = new Button ("Return");
 		returnButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.Available) {
@@ -138,7 +137,7 @@ public class PropertyWindow {
 				
 			}
 		}else {
-			property.setPropStatus(PropStatus.Available);
+			property.returnProperty(date);
 			
 		
 			StatusBox.display("Confirmation", "Property successfully Returned");
@@ -159,12 +158,12 @@ public class PropertyWindow {
 			
 		}
 	}else {
-		property.setPropStatus(PropStatus.UnderMaintenance);
+		property.performMaintenance();
 		
 	
 		StatusBox.display("Confirmation", "Maintenance successfully started");
 	}});
-	////one more exception to do
+	
 	Button completeButton = new Button ("Complete Maintenance");
 	completeButton.setOnAction(e -> {if (property.getPropStatus() == PropStatus.Available) {
 		try {
@@ -179,7 +178,8 @@ public class PropertyWindow {
 			
 		}
 	}else {
-		property.setPropStatus(PropStatus.Available);
+		property.completeMaintenance(date);
+		
 		
 	
 		StatusBox.display("Confirmation", "Maintenance successfully finished");
@@ -201,8 +201,21 @@ public class PropertyWindow {
 	
 	rightMenu.getChildren().addAll(rentButton, returnButton, maintainButton, completeButton);
 	
-	ListView <String>historyList = new ListView<>();
-	ObservableList<String> data = FXCollections.observableArrayList(record.getDetails(property));
+	
+	ObservableList<RentalRecord> list = FXCollections.observableArrayList(property.getRecordList());
+	
+	
+	TableColumn<RentalRecord, String> detailsColumn = new TableColumn<RentalRecord, String> ();
+	detailsColumn.setCellValueFactory(new PropertyValueFactory<RentalRecord, String>("details"));
+	detailsColumn.setMinWidth(500);
+	
+	table.setItems(list);
+	table.setMaxWidth(500);
+	table.getColumns().addAll(detailsColumn);
+	
+	
+	ListView <RentalRecord> historyList = new ListView<RentalRecord>();
+	ObservableList<RentalRecord> data = FXCollections.observableArrayList(property.getRecordList());
 	
 	historyList.setItems(data);
 	
@@ -224,11 +237,11 @@ public class PropertyWindow {
 	
 	Label descriptionLabel = new Label ("Description: " + property.getDescription());
 	descriptionLabel.setFont(Font.font("Verdana", 12));
-	descriptionLabel.setPadding(new Insets(20,40,20,20));
+	descriptionLabel.setPadding(new Insets(20,0,20,0));
 	
 	VBox centreBox = new VBox();
-	centreBox.getChildren().addAll(descriptionLabel, historyList);
-	centreBox.setPadding(new Insets(30,10,20,40));
+	centreBox.getChildren().addAll(descriptionLabel, table);
+	centreBox.setPadding(new Insets(30,10,20,100));
 	
 	
 	AnchorPane top = new AnchorPane();
@@ -249,13 +262,9 @@ public class PropertyWindow {
 	roomsLabel.setFont(Font.font("Verdana", 20));
 	roomsLabel.setPadding(new Insets(20,40,0,20));
 	
-	Label priceLabel = new Label("Rate: " + property.getRate());
+	Label priceLabel = new Label("Rate: " + "$"+ property.getRate() + " per night");
 	priceLabel.setFont(Font.font("Verdana", 20));
 	priceLabel.setPadding(new Insets(20,40,0,20));
-	
-//	Label descriptionLabel = new Label ("Description: " + property.getDescription());
-//	descriptionLabel.setFont(Font.font("Verdana", 20));
-//	descriptionLabel.setPadding(new Insets(20,40,0,20));
 	
 	top.getChildren().addAll(idLabel, addressLabel, statusLabel, roomsLabel, priceLabel);
 	top.setPadding(new Insets(100));
@@ -268,8 +277,6 @@ public class PropertyWindow {
 	image.setFitHeight(300);
 	image.setFitWidth(600);
 	topBox.setPadding(new Insets (15,20,0,20));
-//	image.prefHeight(200);
-//	image.prefWidth(200);
 	topBox.getChildren().addAll(labels, image);
 	
 	
@@ -287,9 +294,12 @@ public class PropertyWindow {
 	
 	window.setScene(scene);
 	window.setResizable(false);
-	//scene = new Scene(border, 1000, 665);
-	
 	window.showAndWait();
+	
+	Pane header = (Pane) table.lookup("TableHeaderRow");
+	header.setMaxHeight(0);
+    header.setMinHeight(100);
+    header.setPrefHeight(0);
 }
 
 }

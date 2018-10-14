@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import controller.FlexiRentController;
 import javafx.beans.value.ChangeListener;
@@ -28,22 +29,17 @@ public class AddProperty{
 	private String streetName;
 	private String suburb;
 	private static String propType;
-	private int rooms;
+	private static int rooms;
 	private String image;
 	private String description;
-	private Apartment apartment;
-	private Suite suite;
 	private FlexiRentController flexiRentController;
-	
-	
+	private ArrayList <RentalRecord> recordList;
+	private static RentalProperty property;
 	
 	Scene scene;
 	
-	
-
 	public static void display(String title) {
 	Stage window = new Stage();
-	
 	
 	GridPane grid = new GridPane();
 	grid.setPadding(new Insets(10,10,10,10));
@@ -100,7 +96,7 @@ public class AddProperty{
 	roomBox.getItems().addAll("1", "2", "3");
 	GridPane.setConstraints(roomBox, 1, 4, 2, 1);
 	String result = roomBox.getValue();
-	//rooms = Integer.parseInt(result);
+	rooms = Integer.parseInt(result);
 			
 	Label imageLabel = new Label("Select an image:");
 	GridPane.setConstraints(imageLabel, 0, 5);
@@ -122,25 +118,19 @@ public class AddProperty{
 	String suburb = suburbField.getText();
 	String description = box.getText();
 	String image = "image";
-	 
-	
-	
-	RentalProperty rental;
-	Suite suite = new Suite();
-	Apartment apartment = new Apartment();
-	
-	//Apartment.addProperty(propID, streetNum, streetName, suburb, PropStatus.Available, rooms, minimumRent, rate, lateFee);
-	
-	
+
 	//When confirm button is clicked a new property is created from the user input and added to the array list
 	Button confirmButton = new Button("Confirm");
-	//confirmButton.setOnAction(e -> 
-//			System.out.println(streetNumField.getText() + "\n" + street NameField.getText());
+//	confirmButton.setOnAction(e -> { property.addProperty(propType, streetNum, streetName, suburb, description, image);
+////			System.out.println(streetNumField.getText() + "\n" + street NameField.getText()
+//		});
 	GridPane.setConstraints(confirmButton, 1, 10);
 	
 	
 	Button cancelButton = new Button("Cancel");
+	cancelButton.setOnAction(e-> window.close());
 	GridPane.setConstraints(cancelButton, 2, 10);
+	
 			
 	grid.getChildren().addAll(propTypeLabel, apartmentButton, suiteButton, streetNumLabel, streetNumField, streetNameLabel, streetNameField, suburbLabel, suburbField, roomsLabel, roomBox, confirmButton, cancelButton, imageLabel, imageSelect, descriptLabel, box);
 	
@@ -152,42 +142,44 @@ public class AddProperty{
 	
 	
 	//Button Actions for bottom Menu
-	Button button1 = new Button ("Back to Menu");
-	button1.setOnAction(e -> window.close());
+	Button BackButton = new Button ("Back to Menu");
+	BackButton.setOnAction(e -> window.close());
 	
-	Button button2 = new Button ("Save");
-	button2.setOnAction(e -> System.out.println("Save"));
+	Button SaveButton = new Button ("Save");
+	SaveButton.setOnAction(e -> StatusBox.display("Saved", "Data successfully saved"));
+
+	Button ImportButton = new Button ("Import Data");
+	ImportButton.setOnAction(e -> System.out.println("Import"));
 	
-	Button button3 = new Button ("Import Data");
-	button3.setOnAction(e -> System.out.println("Import"));
+	Button ExportButton = new Button ("Export Data");
+	ExportButton.setOnAction(e -> { FileSave.saveInfo();{
+		StatusBox.display("Saved", "Data successfully exported");
+	}});
 	
-	Button button4 = new Button ("Export Data");
-	button4.setOnAction(e -> System.out.println("Export"));
-		
-	Button button5 = new Button ("Quit");
-	button5.setOnAction(e -> {
-		boolean confirm = ConfirmBox.display("Exit Program", "Are you sure you want to exit the program?");
-		if(confirm == true){
+	Button Quitbutton = new Button ("Quit");
+	Quitbutton.setOnAction(e -> {
+		boolean result2 = ConfirmBox.display("Exit Program", "Are you sure you want to exit the program?");
+		if(result2 == true){
 				System.exit(0);}
 	});
 	
-	button1.setMinWidth(bottomMenu.getPrefWidth());
-	button1.setMinHeight(bottomMenu.getPrefHeight());
-	button1.setOpacity(0.9);
-	button2.setMinWidth(bottomMenu.getPrefWidth());
-	button2.setMinHeight(bottomMenu.getPrefHeight());
-	button2.setOpacity(0.9);
-	button3.setMinWidth(bottomMenu.getPrefWidth());
-	button3.setMinHeight(bottomMenu.getPrefHeight());
-	button3.setOpacity(0.9);
-	button4.setMinWidth(bottomMenu.getPrefWidth());
-	button4.setMinHeight(bottomMenu.getPrefHeight());
-	button4.setOpacity(0.9);
-	button5.setMinWidth(bottomMenu.getPrefWidth());
-	button5.setMinHeight(bottomMenu.getPrefHeight());
-	button5.setOpacity(0.9);
+	BackButton.setMinWidth(bottomMenu.getPrefWidth());
+	BackButton.setMinHeight(bottomMenu.getPrefHeight());
+	BackButton.setOpacity(0.9);
+	SaveButton.setMinWidth(bottomMenu.getPrefWidth());
+	SaveButton.setMinHeight(bottomMenu.getPrefHeight());
+	SaveButton.setOpacity(0.9);
+	ImportButton.setMinWidth(bottomMenu.getPrefWidth());
+	ImportButton.setMinHeight(bottomMenu.getPrefHeight());
+	ImportButton.setOpacity(0.9);
+	ExportButton.setMinWidth(bottomMenu.getPrefWidth());
+	ExportButton.setMinHeight(bottomMenu.getPrefHeight());
+	ExportButton.setOpacity(0.9);
+	Quitbutton.setMinWidth(bottomMenu.getPrefWidth());
+	Quitbutton.setMinHeight(bottomMenu.getPrefHeight());
+	Quitbutton.setOpacity(0.9);
 ;
-	bottomMenu.getChildren().addAll(button1, button2, button3, button4, button5);
+	bottomMenu.getChildren().addAll(BackButton, SaveButton, ImportButton, ExportButton, Quitbutton);
 	
 	
 	
@@ -293,6 +285,16 @@ public class AddProperty{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public ArrayList<RentalRecord> getRecord() {
+		return recordList;
+	}
+
+
+	public void setRecord(ArrayList <RentalRecord> recordList) {
+		this.recordList = recordList;
 	}
 	
 //	void addConfirmListener(ActionListener listenForConfirm){

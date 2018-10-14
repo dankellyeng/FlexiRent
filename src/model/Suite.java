@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.Date;
 
 import controller.FlexiRentSystem;
@@ -9,13 +10,12 @@ public class Suite extends RentalProperty {
 	
 	private String propID;
 	private DateTime lastMaintained;
-	private PropertyArray array;
-
+	
 	//Suite Constructor
 	public Suite(String propID, String streetNum, String streetName, String suburb,
-			PropStatus propStatus, String image, String description) {
+			PropStatus propStatus, String image, String description, ArrayList <RentalRecord> recordList) {
 
-		super(streetNum, streetName, suburb, propStatus, image, description);
+		super(streetNum, streetName, suburb, propStatus, image, description, recordList);
 		setRate(554);	//fixed variables for suites
 		setRooms(3); 
 		setMinimumRent(1);
@@ -29,18 +29,15 @@ public class Suite extends RentalProperty {
 		
 	}
 
-	public static void addProperty(String propID, String streetNum, String streetName, String suburb,
-			PropStatus propStatus, String image, String description) {
-		PropertyArray array = new PropertyArray();
+	public void addProperty(String propID, String streetNum, String streetName, String suburb,
+			PropStatus propStatus, String image, String description, ArrayList <RentalRecord> recordList) {
 
-		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus, image, description); 
-		//array.addtoList(s);
-		//System.out.println("Property " + s.getPropID() + " added to arraylist whoop whoop");
-		//FlexiRentSystem.addtoRecord(s);  // adds suite to array once created
-		
+		Suite s = new Suite(propID, streetNum, streetName, suburb, propStatus, image, description, recordList); 
+		PropertyArray.propArrayList.add(s);
+	
 	}
 
-public void rent(String customerID, DateTime rentDate, DateTime numOfRentDays) {
+public void rent(String customerID, DateTime rentDate, int numOfRentDays) {
 		
 		if (getPropStatus() == PropStatus.Available) {
 			setPropStatus(PropStatus.Rented);

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import controller.FlexiRentSystem;
 
 public class Apartment extends RentalProperty {
@@ -7,11 +9,11 @@ public class Apartment extends RentalProperty {
 	private String propType;
 	private String propID;
 
-	//Appartment constructor
+	//Apartment constructor
 	public Apartment(String propID, String streetNum, String streetName, String suburb,
-			PropStatus propStatus, int rooms, int minimumRent, double rate, double lateFee, String image, String description) {
+			PropStatus propStatus, int rooms, int minimumRent, int rate, int lateFee, String image, String description, ArrayList <RentalRecord> recordList) {
 
-		super(streetNum, streetName, suburb, propStatus, image, description);
+		super(streetNum, streetName, suburb, propStatus, image, description, recordList);
 
 		propType = "A_";
 		setPropTypeLong("Apartment");
@@ -22,37 +24,13 @@ public class Apartment extends RentalProperty {
 	public Apartment() {
 		
 	}
-
 	public static void addProperty(String propID, String streetNum, String streetName, String suburb,
-			PropStatus propStatus, int rooms, int minimumRent, 
-			double rate, double lateFee, String image, String description) {
+			PropStatus propStatus, int rooms, int minimumRent, int rate, int lateFee, String image, String description, ArrayList <RentalRecord> recordList) {
 
-		PropertyArray array = new PropertyArray();
-		
-		Apartment a = new Apartment(propID, streetNum, streetName, suburb, propStatus, rooms, 0, rate, lateFee, image, description); 
-		//array.addtoList();
-		System.out.println("Property " + a.getPropID() + " added to arraylist");
-		
-		//FlexiRentSystem.addtoRecord(a);	//adds appartment to array
-
+		Apartment a = new Apartment(propID, streetNum, streetName, suburb, propStatus, rooms, minimumRent, rate, lateFee, image, description, recordList); 
+		PropertyArray.propArrayList.add(a);
+	
 	}
-
-//	public boolean rent(String customerId, DateTime rentDate, int numOfRentDay) {
-//
-//		return false;
-//	}
-//
-//	public boolean returnProperty(DateTime returnDate) {
-//
-//		return false;
-//
-//	}
-//
-//	public boolean completeMaintenance(DateTime completionDate) {
-//
-//		return true;
-//	}
-
 
 	public String toString() {
 
